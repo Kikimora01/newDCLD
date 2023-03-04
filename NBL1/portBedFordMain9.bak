@@ -1,0 +1,5643 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 65001
+\documentclass[titlepage,fleqn]{article}%
+\usepackage{eurosym}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{rotating}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+%TCIDATA{Created=Thursday, August 18, 2016 12:12:28}
+%TCIDATA{LastRevised=Saturday, March 04, 2023 10:08:41}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\begin{document}
+
+\title{[Draft \#9] About Distributions of Significant Leading Digits}
+\author{Vladimir S. Berman\\vb7654321@gmail.com}
+\maketitle
+
+\begin{abstract}
+This paper examines the various forms of distribution densities for leading
+digits. The formulation of the problem of the distribution of leading digits
+imposes certain limitations on the Distribution of Significant Leading Digits
+(DSLD) and should have some specific properties. This provides the possibility
+of finding an exact solution or alternatively constructing an approximation.
+This paper presents solutions for the various underlying distributions, with
+explicit analytical solutions for the first significant digit densities, but
+for others we find highly accurate approximations. This paper rigorously
+deduces a new type of DSLD instead of the frequently used empirical NBL.
+
+\end{abstract}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\section{Notations}
+
+The following notation and definitions will be used in this article.%
+
+%TCIMACRO{\TeXButton{Notation Enumiration}{\begin{enumerate}[align=right]
+%\item[$N$]  number of elements  in set (infinit or finit)
+%\item[$\rho(k)=\frac{n_k}{N}$]  proportion of  $k$  in set
+%\item[DSLD] Distribution of Significant Leading Digits
+%\item[UD] Uniform Distribution.
+%\item[$\displaystyle\log{x}=\frac{\ln{x}}{\ln{10}}%
+%$] the logarithm of x to base 10.
+%\item[$\displaystyle\lfloor{x}\rfloor
+%$] floor, greatest integer less than or equal to a number $x$.
+%\item[$x\mod{}1$]  remainder
+%$\{x\}=x-\lfloor{x}\rfloor$.
+%\item[$\digamma=\int\limits_{t=0}^\infty
+%f(t) dt$]  probability of positive numbers.
+%\item[$\imath=\sqrt{-1}$]  the imaginary unit.
+%\item[$\rho(k)$]  probability mass function (PMF)
+%\item[CDF]  Cumulative Distribution Function
+%\item[PDF]  Probability Density Function
+%\item[NBL]  The Newcomb--Benford Law \cite{formann0}
+%\item[$\mathbb{N}$] The set of natural numbers: $\{1, 2, 3, . . .\}$
+%\item[$\mathbb{Z}^{*}%
+%$] The set of non-negative integers: $\{0,1, 2, 3, . . .\}$
+%\item[$\mathbb{Z}$] The set of integers: $\{...,-3,-2,-1,0,1, 2, 3, . . .\}$
+%\end{enumerate}
+%}}%
+%BeginExpansion
+\begin{enumerate}[align=right]
+\item[$N$]  number of elements  in set (infinit or finit)
+\item[$\rho(k)=\frac{n_k}{N}$]  proportion of  $k$  in set
+\item[DSLD] Distribution of Significant Leading Digits
+\item[UD] Uniform Distribution.
+\item[$\displaystyle\log{x}=\frac{\ln{x}}{\ln{10}}%
+$] the logarithm of x to base 10.
+\item[$\displaystyle\lfloor{x}\rfloor
+$] floor, greatest integer less than or equal to a number $x$.
+\item[$x\mod{}1$]  remainder
+$\{x\}=x-\lfloor{x}\rfloor$.
+\item[$\digamma=\int\limits_{t=0}^\infty
+f(t) dt$]  probability of positive numbers.
+\item[$\imath=\sqrt{-1}$]  the imaginary unit.
+\item[$\rho(k)$]  probability mass function (PMF)
+\item[CDF]  Cumulative Distribution Function
+\item[PDF]  Probability Density Function
+\item[NBL]  The Newcomb--Benford Law \cite{formann0}
+\item[$\mathbb{N}$] The set of natural numbers: $\{1, 2, 3, . . .\}$
+\item[$\mathbb{Z}^{*}%
+$] The set of non-negative integers: $\{0,1, 2, 3, . . .\}$
+\item[$\mathbb{Z}$] The set of integers: $\{...,-3,-2,-1,0,1, 2, 3, . . .\}$
+\end{enumerate}
+%EndExpansion
+
+
+\section{Introduction}%
+
+%TCIMACRO{\TeXButton{\label{introduction}}{\label{introduction}}}%
+%BeginExpansion
+\label{introduction}%
+%EndExpansion
+
+
+For the past $135$ years, ever since the problem of the distribution of
+leading digits began to attract attention
+%TCIMACRO{\TeXButton{cite0}{\cite{newcombs}  and \cite{benford}}}%
+%BeginExpansion
+\cite{newcombs}  and \cite{benford}%
+%EndExpansion
+, more than $1,500$ articles and books have been published on this subject
+%TCIMACRO{\TeXButton{cite1}{\cite{hill},\cite{bergerhill},\cite{arnotheodore}%
+%,\cite{miller}}}%
+%BeginExpansion
+\cite{hill},\cite{bergerhill},\cite{arnotheodore},\cite{miller}%
+%EndExpansion
+. Particular attention has been paid to the NBL which describes the DSLD,
+chosen from empirical distributions of leading digits%
+
+\begin{equation}
+\rho_{NBL}(k)=\log(k+1)-\log(k),1\leq k\leq9. \label{BF_Distr}%
+\end{equation}
+\medskip%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+$k$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$\\\hline
+$\rho(k)$ & ${\small .3010}$ & .${\small 1760}$ & ${\small .1249}$ &
+${\small .09690}$ & ${\small .07918}$ & ${\small .06691}$ & ${\small .05799}$
+& ${\small .05115}$ & ${\small .04576}$\\\hline\hline
+\end{tabular}
+\bigskip\caption{Table Caption 1}\label{TableKey1}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+Many authors believe that the NBL has a universal character and that the
+majority of cases of number sequences lead to a realization of this law. And
+in most cases, the distribution of the leading digits based on experimental
+approaches have been followed by numerical approximations. Often, in the
+literature, the appearance of the NBL is described as mysterious and magical.
+Such statements have naturally attracted the attention of various researchers
+%TCIMACRO{\TeXButton{cite1a}{\cite{diaconis},\cite{raimi},\cite{nigrini1}%
+%,\cite{arnold0},\cite{arnold1},\cite{bergerhill},\cite{nigrini},\cite
+%{arnotheodore} and \cite{miller}}}%
+%BeginExpansion
+\cite{diaconis},\cite{raimi},\cite{nigrini1},\cite{arnold0},\cite
+{arnold1},\cite{bergerhill},\cite{nigrini},\cite{arnotheodore} and \cite
+{miller}%
+%EndExpansion
+.
+
+An aspiration to use a universal distribution is, in our view, due to the
+charm of the central limit theorem, where it is proved that for any underlying
+distribution, we get the normal distribution the in limit. The main attraction
+of the NBL is due to its simplicity.
+
+However, for the sake of simplicity there is the sacrifice of the important
+properties of the underlying distributions. So many underlying distributions
+have parameters whose influence is not reflected in the NBL. Another important
+feature is the periodic dependence of the DSLD on the parameters underlying
+the distribution, e.g., for the exponential ($0<\lambda$) and normal
+($\mu=0,0<\sigma$) distributions we have, from numerical simulations, a
+periodic dependence of the DSLD on $\log(\lambda)$ and $\log(\sigma)$, respectively.
+
+Most publications have considered of empirical data sets or numerical
+interpretation. It is surprising that only a few publications have addressed
+the underlying probability distributions. In
+%TCIMACRO{\TeXButton{cite2}{\cite{pinkham} and \cite{raimi}} }%
+%BeginExpansion
+\cite{pinkham} and \cite{raimi}
+%EndExpansion
+irregular attempts to use certain symmetry properties have been made to
+explain the logarithmic nature of the NBL. Symmetry properties are powerful
+tools that will be used in this paper to find the exact solutions and
+approximate analysis of the distributions. In our opinion, symmetry plays a
+very important role in the behavior of the DSLD and is a powerful instrument
+for analyzing the DSLD. In many cases, the NBL can be regarded as an ad hoc
+approach to empirical data.
+
+We will build a few basic types of DSLDs. We will find analytical forms of the
+distribution of leading digits. The main results of this paper concern the
+presentation of three main constructions of a DSLD.
+
+Let $F(z)$ be a cumulative distribution function (CDF). We will generate a
+random sample drawn from the distribution given by \ a continuous random
+variable $Z$. We have the distribution function for the sequence of numbers
+from which we select the sample, and then the density of the leading digits
+$k$\ is defined as\bigskip%
+\begin{align}
+10^{m}k  &  \leq z<10^{m}(k+1),\label{MainFormulation}\\
+\rho(k)  &  =%
+%TCIMACRO{\dsum \limits_{m=m_{\min}}^{m_{\max}}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=m_{\min}}^{m_{\max}}}
+%EndExpansion
+\left(  F(10^{m}(k+1))-F(10^{m}k)\right)  ,\\
+F(z)  &  =%
+%TCIMACRO{\dint \limits_{t=a}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=a}^{z}}
+%EndExpansion
+f(t)dt,10^{L}\leq k\leq10^{L}-1,\nonumber\\
+L  &  \in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,L=\left\lfloor \log(k)\right\rfloor .\nonumber
+\end{align}
+
+
+Where \ $f(z)$\ is\ the probability density function (PDF) of the underlying
+probability distribution, $k$\ is the significant ($0<k$) leading digit of an
+element of the sample, and $L=\left\lfloor \log(k)\right\rfloor $\ \ defines
+the order of magnitude of $k$.
+
+It should be noted that the probability density of the leading digit is not an
+arbitrary function. It is limited by a number of strong restrictions and
+symmetries. The explicit form of \ $\rho(k,L)$ \ depends on the underlying distribution.
+
+This paper is organized as follows.
+
+The\
+%TCIMACRO{\TeXButton{\ref{FormulationOf prob}}{\ref{FormulationOf prob}} }%
+%BeginExpansion
+\ref{FormulationOf prob}
+%EndExpansion
+Section discusses the mathematical formulation of the problems. After we solve
+the functional equations, we have three main types of forms of DSLD.
+
+In Section
+%TCIMACRO{\TeXButton{\ref{InerPesent}}{\ref{InerPesent}} }%
+%BeginExpansion
+\ref{InerPesent}
+%EndExpansion
+we give integral relationships for different cases of DSLD.
+
+In Section
+%TCIMACRO{\TeXButton{\ref{Diocret Distributions}}{\ref{Diocret Distributions}}
+%}%
+%BeginExpansion
+\ref{Diocret Distributions}
+%EndExpansion
+we consider a few examples of applications of our approach to discrete sets of data.
+
+In the following sections, we present examples capable of exact solutions. In
+Section
+%TCIMACRO{\TeXButton{\ref{TofD}}{\ref{TofD}}}%
+%BeginExpansion
+\ref{TofD}%
+%EndExpansion
+, there are some examples of explicit formulas for $\rho(k)$. More
+specifically, we present various solutions not only in the interval $1\ldots9$
+but in the interval $10\ldots99$ and so on.~We will also discuss how to build
+analytical solutions for a number of popular underlying distributions. We then
+build the solutions for this distributions. It is shown that in many cases
+even a small number of members of sets gives a good approximation of the exact
+solution. We then proceed, in Sections
+%TCIMACRO{\TeXButton{\ref{DfED}+}{\ref{DfWD},\ref{DofLD2P} and \ref{NormD}} }%
+%BeginExpansion
+\ref{DfWD},\ref{DofLD2P} and \ref{NormD}
+%EndExpansion
+to review the distribution with infinite area of a random sample from an
+underlying distribution.
+
+Section
+%TCIMACRO{\TeXButton{\ref{Discussion}}{\ref{Discussion}} }%
+%BeginExpansion
+\ref{Discussion}
+%EndExpansion
+presents in more detail the assumptions made implicitly. We also present some
+harmonic and numerical approximations of DSLD which in many cases give exact
+or `almost exact' \ solutions of the problem.
+
+~In conclusion, we present examples that show the evolution of different forms
+of DSLD, and the transition from one form to another when changing the
+parameters of the underlying distribution. We discuss the characteristics of
+the DSLD found and forms of correspondence with the NBL.
+
+~~In the appendices we introduce some technical results useful for
+understanding the subject of the paper, including integral formulas for the
+calculation of a DSLD. There we consider in detail many technical aspects of
+finding solutions and also, for the purpose of self-sufficiency, we have the
+necessary reference information.
+
+We present a few examples of distributions and show how the properties of the
+underlying distributions determine the form of the distribution of the first
+digits. We will consider different underlying distribution, such as, ratio $2$
+positive numbers from UD, the production of $n$ nonnegative numbers, the
+distribution of leading digits for an exponential underlying distribution, and
+ratio $2$ positive numbers. In some cases we can derive explicit formulas for
+the DSLD and trace the evolution of the distribution as a function of the
+parameters. In other cases, on the basis of a knowledge of the form of the
+function $\rho(k)$, we will derive approximate forms. Below we give a brief
+description of the different distributions.
+
+\section{Formulation of the Problem}%
+
+%TCIMACRO{\TeXButton{\label{FormulationOf prob}}{\label{FormulationOf prob}}}%
+%BeginExpansion
+\label{FormulationOf prob}%
+%EndExpansion
+
+
+Before formulating the common task, let us consider a simple example. For
+example, consider the set of two numbers $[0.1,\pi]$, which is equivalent to
+$[1000\ldots,31415\ldots]$. Then for $\lfloor\log(k)\rfloor=0$, first digits
+are $[1,3]$, and for $\lfloor\log(k)\rfloor=1$ the first two digits are
+$[10,31]$, and so on.
+
+We will consider a function \ $\rho(k)$ that has the following symmetry
+properties. For example, for $k=1,$ we have%
+
+\begin{align}
+\rho(1)  &  =\rho(10)+\rho(11)+\ldots+\rho(19),\label{Cond1}\\
+\rho(1)  &  =\rho(100)+\rho(101)+\ldots+\rho(199),\nonumber\\
+\rho(1)  &  =\rho(1000)+\rho(1001)+\ldots+\rho(1999),\nonumber\\
+\rho(10)  &  =\rho(100)+\rho(101)+\ldots+\rho(109),\nonumber\\
+&  \ldots\nonumber
+\end{align}
+In the general case, we have%
+\begin{equation}
+\rho(k,0)=%
+%TCIMACRO{\dsum \limits_{i=0}^{10^{L}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{10^{L}-1}}
+%EndExpansion
+\rho(10^{L}k+i,L),L\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast}. \label{MainEq_1}%
+\end{equation}
+%
+
+\begin{align}
+\rho(k,L)  &  =%
+%TCIMACRO{\dsum \limits_{i=0}^{10^{\delta}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{10^{\delta}-1}}
+%EndExpansion
+\rho(10^{\delta}k+i,L+\delta),\label{MainEq_2}\\
+L  &  \in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast},\delta\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast}.\nonumber
+\end{align}
+%
+
+\begin{equation}%
+%TCIMACRO{\dsum \limits_{k=10^{L}}^{10^{L+1}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{k=10^{L}}^{10^{L+1}-1}}
+%EndExpansion
+\rho(k,L)=\digamma,L\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast}. \label{MainEq_0}%
+\end{equation}%
+\[
+L=\lfloor\log(k)\rfloor,0\leq\rho(k,L)\leq1.
+\]
+\noindent Here, $0\leq\digamma$ is the probability of positive numbers.
+
+These requirements put restrictions on the possible forms of the function
+$\rho(k)$. This raises the interesting question, `What kind of form should the
+distribution density of significant leading digits have?'
+
+The relations (\ref{MainEq_2}--\ref{MainEq_0}) can be interpreted as a system
+of functional equations. In some cases, these equations have explicit solutions.
+
+For the considered sum, (\ref{MainFormulation}) can be expressed through one
+of the types of construction from the list below.
+
+Some solutions of the functional equations (\ref{MainEq_2}--\ref{MainEq_0})
+\ are in Appendix
+%TCIMACRO{\TeXButton{\ref{SofFE}}{\ref{SofFE}}}%
+%BeginExpansion
+\ref{SofFE}%
+%EndExpansion
+.
+
+\begin{itemize}
+\item In case $\rho(k,L)$ only depends on $L$, then all the digit for the same
+$L$ have the same probability, and we have%
+\begin{equation}
+\rho(k)=\frac{1}{9}10^{-\lfloor\log(k)\rfloor}. \label{S1}%
+\end{equation}
+
+
+\item In case $\rho(k,L)$ depends only on $k$, the solution is%
+\begin{align}
+\rho(k)  &  =\digamma\left(  \log(k+1)-\log(k)\right) \label{S2}\\
+&  +Q_{1}(\log(k+1))-Q_{1}(\log(k)),\nonumber\\
+Q_{1}(s)  &  =Q_{1}(s+1),\forall s.\nonumber
+\end{align}
+
+
+\item In the more general case, when $\rho(k,\lfloor\log(k)\rfloor)$, we have%
+\begin{equation}
+\rho(k)=\Omega(\log(k+1)-\lfloor\log(k)\rfloor)-\Omega(\log(k)-\lfloor
+\log(k)\rfloor). \label{S3}%
+\end{equation}
+
+\end{itemize}
+
+\noindent Here, $\Omega(s)$ is any admissible function.
+
+In the case when $j_{\max}=+\infty$ and \ $j_{\min}=-\infty$ we can see that
+the function $G(k)=const+%
+%TCIMACRO{\dsum \limits_{j=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=-\infty}^{\infty}}
+%EndExpansion
+F(10^{j}k)$ is invariant under transformation with integer $a$
+\[
+j\rightarrow j^{\prime}-a,\log(k)\rightarrow\log(k^{\prime}10^{a}%
+)=\log(k^{\prime})+a.
+\]
+In this case \ we have a solution in the form of the sum of a 1-period
+function and a linear function.%
+\begin{align*}
+const+%
+%TCIMACRO{\dsum \limits_{j=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=-\infty}^{\infty}}
+%EndExpansion
+F(10^{j+\log(k)})  &  =const+A\log(k)+Q_{1}(\log(k)),\\
+Q_{1}(s+1)  &  =Q_{1}(s),\forall s.\text{ }%
+\end{align*}
+Sometimes it is convenient to add, without loss of generality, to the argument
+of $Q_{1}$, the integer $-\lfloor\log(k)\rfloor$%
+
+\[
+const+%
+%TCIMACRO{\dsum \limits_{j=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=-\infty}^{\infty}}
+%EndExpansion
+F(10^{j+\log(k)})=A\log(k)+Q_{1}(\log(k)-\lfloor\log(k)\rfloor).
+\]
+\ \ and (\ref{S2}) takes the form%
+\begin{align}
+\rho(k)  &  =A\left(  \log(k+1)-\log(k)\right)  +Q_{1}(\log(k+1)\label{S2a}\\
+&  -\lfloor\log(k)\rfloor)-Q_{1}(\log(k)-\lfloor\log(k)\rfloor).\nonumber
+\end{align}%
+\[
+\log(k)-\lfloor\log(k)\rfloor\equiv\log(k)\text{ }\operatorname{mod}\text{
+}1=\left\{  k\right\}  .
+\]
+
+
+From (\ref{S3}) we can present (\ref{S1}) as%
+\[
+\Omega(s)=\frac{1}{9}10^{s},
+\]
+and (\ref{S2}) as%
+\begin{equation}
+\Omega(s)=\digamma\log(s)+Q_{1}(s). \label{S2b}%
+\end{equation}
+
+
+We can enter a condition in which the implemented solution (\ref{S2}) for all
+permissible $L$ and $k$%
+\begin{align}
+&  \Omega(\log(k+1))-\Omega(\log(k+1)+L)\label{S2c}\\
+-\Omega(\log(k))+\Omega(\log(k)+L)  &  =0,\nonumber\\
+k  &  \in%
+%TCIMACRO{\U{2115} }%
+%BeginExpansion
+\mathbb{N}
+%EndExpansion
+,L\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast}.\nonumber
+\end{align}
+
+
+\section{Integral representation of DSLD}%
+
+%TCIMACRO{\TeXButton{\labelf{InerPesent}}{\label{InerPesent}}}%
+%BeginExpansion
+\label{InerPesent}%
+%EndExpansion
+
+
+Because operate with discrete relations, which are less convenient than
+continuous ones, it would be useful to replace the summation in
+(\ref{MainFormulation}) with an integration. We use the well-known
+Euler--Maclaurin formula (EMf)%
+%TCIMACRO{\TeXButton{\cite_abramowitz}{\cite{knuth},\cite{wabramowitzstegun}
+%and \cite{knuth2}} }%
+%BeginExpansion
+\cite{knuth},\cite{wabramowitzstegun}
+and \cite{knuth2}
+%EndExpansion
+and make an exact replacement of the sum by the integral.%
+%TCIMACRO{\TeXButton{EulerMaclaurin}{\label{EulerMaclaurin}}}%
+%BeginExpansion
+\label{EulerMaclaurin}%
+%EndExpansion
+Euler--Maclaurin's formula (EMf)\ gives a representation of a sum in the form
+of a definite integral. It is important to stress that the EMf is an exact
+expression of the sum in integral form (for at least a differentiable
+function): it is not an approximation. From the EMf we have\bigskip\ an
+expression the sum in the form of an integral which is (see Appendix
+%TCIMACRO{\TeXButton{\ref{DerForm}}{\ref{DerForm}}}%
+%BeginExpansion
+\ref{DerForm}%
+%EndExpansion
+)\
+\begin{align}%
+%TCIMACRO{\dsum \limits_{j=a}^{b}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=a}^{b}}
+%EndExpansion
+g(j)  &  =%
+%TCIMACRO{\dint \limits_{x=a}^{b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=a}^{b}}
+%EndExpansion
+\left(  g(x)+\left(  x-\left\lfloor x\right\rfloor -\frac{1}{2}\right)
+\frac{dg(x)}{dx}\right)  dx\label{EMF00}\\
+&  +\frac{g(b)}{2}+\frac{g(a)}{2},\\
+a\text{ and }b\text{ are integers, }a  &  <b.\nonumber
+\end{align}
+
+
+We will apply Euler--Maclaurin summation in this form, which is convenient for
+our purposes.
+
+In our case we have%
+\begin{align*}
+g(j)  &  =F(10^{j+\log(k+1)})-F(10^{j+\log(k)})\\
+F(z)  &  =%
+%TCIMACRO{\dint \limits_{-\infty}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{z}}
+%EndExpansion
+f(t)dt.
+\end{align*}
+
+
+Depending on the values of $a$ and $b$, we have different representations
+(\ref{EMF00}).
+
+When $a=-\infty(z=0)$ and $b=\infty(z=\infty)$ we have%
+\begin{align}
+\rho(k)  &  =%
+%TCIMACRO{\dint \limits_{t=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=0}^{\infty}}
+%EndExpansion
+f(t)P(k,t)dt,\label{EMF01}\\
+\Omega(s)  &  =-%
+%TCIMACRO{\dint \limits_{t=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=0}^{\infty}}
+%EndExpansion
+f(s)\left\lfloor \log\left(  t\right)  -s\right\rfloor dt. \label{EMF01a}%
+\end{align}
+where%
+\begin{equation}
+P(k,t)=\left\lfloor \log\left(  \frac{t}{k}\right)  \right\rfloor
+-\left\lfloor \log\left(  \frac{t}{k+1}\right)  \right\rfloor . \label{EMF02}%
+\end{equation}
+For a positive integer $k$\ and a positive $t$\ we have
+\begin{equation}
+P(k,t)=\left\{
+\begin{array}
+[c]{cc}%
+1, & 10^{m}k\leq t\leq10^{m}(k+1),\\
+0, & t\notin\lbrack10^{m}k,10^{m}(k+1)],\text{integer }m.
+\end{array}
+\right.  \label{EMF02a}%
+\end{equation}
+
+
+Formula (\ref{EMF01}) is equivalent to%
+\begin{align}
+\rho(k,L)  &  =%
+%TCIMACRO{\dsum \limits_{j=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=-\infty}^{\infty}}
+%EndExpansion%
+%TCIMACRO{\dint \limits_{10^{j-L}k}^{10^{j-L}(k+1)}}%
+%BeginExpansion
+{\displaystyle\int\limits_{10^{j-L}k}^{10^{j-L}(k+1)}}
+%EndExpansion
+f(t)dt,\label{EMF01b}\\
+L  &  =\left\lfloor \log\left(  k\right)  \right\rfloor .\nonumber
+\end{align}
+In the case when the function $f(t)$ has no fixed points in the interior of
+the interval $[t_{\min},t_{\max}]$ or $-\infty<j_{\min}$ or/and $j_{\max
+}<\infty$ then we have a solution independent of $\left\lfloor \log\left(
+k\right)  \right\rfloor $ (\ref{S2}). Conveniently, in the spirit of
+(\ref{S2}), this case can be expressed as the sum of its logarithmic and
+periodic members%
+
+\begin{align}
+\rho(k)  &  =\digamma\left(  \log(k+1)-\log(k)\right)  +Q_{1}(\log
+(k+1))-Q_{1}(\log(k+1)),\label{EMF03}\\
+&  Q_{1}(\log(k))=%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)\left(  \log\left(  \frac{s}{k}\right)  -\left\lfloor \log\left(  \frac
+{s}{k}\right)  \right\rfloor \right)  ds,\label{EMF03a}\\
+\digamma &  =%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)ds.
+\end{align}
+
+
+It is interesting to note that the first term in (\ref{EMF03}) has the form
+for any admissible function $f(s)$, this follows from integration by parts.%
+\begin{equation}%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion%
+%TCIMACRO{\dint \limits_{t=10^{x}k}^{10^{x}\left(  k+1\right)  }}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=10^{x}k}^{10^{x}\left(  k+1\right)  }}
+%EndExpansion
+f(t)dt=(\log\left(  k+1\right)  -\log\left(  k\right)  )%
+%TCIMACRO{\dint \limits_{t=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=0}^{\infty}}
+%EndExpansion
+f(t)dt. \label{EMF04}%
+\end{equation}
+
+
+The function $Q_{1}(s)$ is 1-periodic in its argument. It is natural to
+consider the Fourier decomposition of this function. Then, after a few
+operations (see Appendix
+%TCIMACRO{\TeXButton{\ref{FourieExpan}}{\ref{FourieExpan}}}%
+%BeginExpansion
+\ref{FourieExpan}%
+%EndExpansion
+), we can write $\rho(k)$ as%
+
+\begin{align}
+\rho(k)  &  =\digamma(\log\left(  k+1\right)  -\log\left(  k\right)
+)+\label{EMF05}\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\Lambda(n)\left(  \sin\left(  ns_{1}+\varphi(n)\right)  -\sin\left(
+ns+\varphi(n)\right)  \right)  ,\nonumber\\
+s_{1}  &  =2\pi\log(k+1),s_{1}=2\pi\log(k),\digamma=%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)dx
+\end{align}%
+\begin{equation}
+\Lambda(n)\exp(\imath\varphi(n))=\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+x^{-\imath Y}f(x)dx,Y=\frac{2\pi n}{\ln(10)}. \label{EMF07}%
+\end{equation}
+In many practical cases, the Fourier coefficients decrease rapidly and then it
+is possible to confine one's attention to only a few (even the first one) of
+the first ones.
+
+\section{Discrete Sets}%
+
+%TCIMACRO{\TeXButton{\label{Diocret Distributions}}{\label
+%{Diocret Distributions}}}%
+%BeginExpansion
+\label{Diocret Distributions}%
+%EndExpansion
+
+
+Consider a set of $N$ positive numbers. It is convenient to introduce an
+enumeration of the elements of this set (the order is not important). Then%
+\begin{equation}
+f(z,N)=\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+\delta\left(  z-a_{j}\right)  . \label{Disc1}%
+\end{equation}
+
+
+From (\ref{EM5})%
+\begin{equation}
+P(k,x)=\left\lfloor \log\left(  \frac{x}{k}\right)  \right\rfloor
+-\left\lfloor \log\left(  \frac{x}{k+1}\right)  \right\rfloor . \label{DiscP}%
+\end{equation}
+
+
+\noindent we have%
+\[
+\rho(k,N)=\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+P(k,a_{j}).
+\]
+And hence we obtain%
+\begin{align}
+\Omega(s)  &  =-\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+\left\lfloor \log\left(  a_{j}\right)  -s\right\rfloor
++const,\label{OmegaDisc}\\
+\Omega(1)-\Omega(0)  &  =1.
+\end{align}
+
+
+This is the general solution. But in some cases $\rho(k,N)$ can monotonically
+go to the NBL or oscillate around the NLB. In such a case, it is more
+convenient to use the form (\ref{A_B_Fourier}) and (\ref{Fouri3}). Then%
+
+\begin{equation}
+A_{n}(N)+\imath B_{n}(N)=\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+x^{-\imath Y}f(x,N)dx,Y=\frac{2\pi n}{\ln(10)},\nonumber
+\end{equation}
+ant taking in consideration (\ref{Disc1}) we have%
+\begin{align}
+A_{n}(N)+\imath B_{n}(N)  &  =\frac{1}{n\pi N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+(a_{j})^{-\imath Y}\label{Disc3a}\\
+&  =\Lambda(n,N)\exp(\imath\varphi(n,N)),Y=\frac{2\pi n}{\ln(10)},
+\end{align}
+and%
+
+\begin{align}
+\rho(k,N)  &  =\log\left(  k+1\right)  -\log\left(  k\right)  +\label{Disc3}\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\left(
+\begin{array}
+[c]{c}%
+A_{n}\left(  \sin\left(  ns_{1}\right)  -\sin\left(  ns\right)  \right) \\
++B_{n}(\cos\left(  ns_{1}\right)  -\cos\left(  ns\right)  )
+\end{array}
+\right)  \text{ or }\nonumber\\
+\rho(k,N)  &  =\log\left(  k+1\right)  -\log\left(  k\right)  +%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\Lambda(n,N)\left(  \sin\left(  ns_{1}+\varphi(n,N)\right)  -\sin\left(
+ns+\varphi(n,N)\right)  \right)  ,\\
+s_{1}  &  =2\pi\log\left(  k+1\right)  ,s=2\pi\log\left(  k\right)  .\nonumber
+\end{align}
+
+
+Let us introduce a criterion for assessing the contribution of the oscillatory
+term%
+\begin{equation}
+V(k,n,N)\ =\left\vert \frac{%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+\Lambda(j,N)\left(  \sin\left(  js_{1}+\varphi(j,N)\right)  -\sin\left(
+js+\varphi(j,N)\right)  \right)  }{\log\left(  1+\frac{1}{k}\right)  \digamma
+}-1\right\vert ,\digamma=1.
+\end{equation}
+if $V\ll1$ then this is the case of the NBL. In many cases we need only a few
+terms in the sum ( $n=1,2,3,\ldots\frac{{}}{{}}$).
+
+Let us consider two examples.
+
+\begin{itemize}
+\item $a_{j}=\alpha^{j}$%
+\begin{equation}
+\frac{1}{n\pi N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+(a_{j})^{-\imath Y}=\frac{1}{n\pi N}\frac{1-\exp(-N\beta\imath)}{\exp
+(\beta\imath)-1},\beta=2\pi n\log(\alpha). \label{Disc4}%
+\end{equation}
+If $\alpha=10^{r}$ where $r=\pm1,\pm2,\ldots$, then the RHS is
+\begin{align*}
+\beta &  =2\pi nr,\Lambda(n,N)=\frac{1}{n\pi},B_{n}(N)=0,\\
+\rho(k,N)  &  =\left\{
+\begin{array}
+[c]{cc}%
+1, & k=1,\\
+0, & k\neq1,k<10
+\end{array}
+\right.  .
+\end{align*}
+
+\end{itemize}
+
+If \ $\alpha\neq10^{r}$, then%
+\begin{align*}
+\Lambda(n,N)  &  =\frac{1}{\pi nN}\sqrt{\frac{1-\cos(\beta N)}{1-\cos(\beta)}%
+},\\
+\tan(\varphi(n,N))  &  =-\frac{\sin(\beta)+\sin(N\beta)}{\cos(\beta
+)+\cos(N\beta)}%
+\end{align*}
+
+
+How can we see that $\rho(k,N)$ as $N\rightarrow\infty$ approaches the NBL,
+with damped oscillations.
+
+\begin{itemize}
+\item $a_{j}=j^{\alpha}$ where $\alpha\neq0$ is real
+\end{itemize}
+
+%
+
+\[
+\frac{1}{n\pi N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+(a_{j})^{-\imath Y}=\frac{1}{n\pi N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+\exp(-\imath\beta\log(j)),\beta=2\pi n\alpha.
+\]
+When $N\rightarrow\infty$\ we can convert the summation to an integration%
+\begin{align}
+\frac{1}{n\pi N}%
+%TCIMACRO{\dsum \limits_{j=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{N}}
+%EndExpansion
+\exp(-\imath\beta\log(j))  &  \thickapprox\frac{1}{n\pi N}%
+%TCIMACRO{\dint \limits_{x=1}^{N}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=1}^{N}}
+%EndExpansion
+\exp(-\imath\beta\log(x))dx\\
+&  \thickapprox\frac{1}{n\pi}\exp(-\imath\beta\log(N))%
+%TCIMACRO{\dint \limits_{1/N}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{1/N}^{1}}
+%EndExpansion
+\exp(-\imath\beta\log(y))dy\nonumber
+\end{align}
+from here we have that $\rho(k,N\rightarrow\infty)$\ \ is a sum of oscillating
+functions from $\log(N)$ with periods $T_{n}=$\ $\frac{1}{n\left\vert
+\alpha\right\vert }$
+
+Numerical calculation give us the dependencies of $A_{n}(N)$ and $A_{n}%
+(N)$\ on $N$
+
+\bigskip%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$a_{j}=j^{-2},A_{n}(N)$
+%- green line,~$B_{n}(N)$ - blue line}}{}{discj_2.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/Discj_2.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/Discj_2.png}%
+\\
+$a_{j}=j^{-2},A_{n}(N)$ - green line,~$B_{n}(N)$ - blue line
+\end{center}}}
+%EndExpansion
+\caption{$a_{j}=j^{\alpha}$}\label{figureKey1}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip
+
+\noindent and
+
+\bigskip%
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$a_{j}=j^{-2}%
+%,T_{1}=\frac{1}{2},\rho(k=1,N)-\log(2)$ vs $s=\log(N)$}}{}{discj-2n.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/DiscJ-2N.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/DiscJ-2N.png}%
+\\
+$a_{j}=j^{-2},T_{1}=\frac{1}{2},\rho(k=1,N)-\log(2)$ vs $s=\log(N)$%
+\end{center}}}
+%EndExpansion
+\caption{$a_{j}=\alpha^{j}$}\label{figureKey2}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip
+
+\noindent and $V(k=1,n=1,N=10^{4},=.2793$, so the contribution of the
+oscillatory term is substantial.
+
+\section{Continuous Distributions}
+
+\subsection{Examples of Exact Forms of DSLD}%
+
+%TCIMACRO{\TeXButton{TofD}{\label{TofD}}}%
+%BeginExpansion
+\label{TofD}%
+%EndExpansion
+
+
+This section and the next explore simple examples of distributions \ and find
+explicit forms of DSLD, giving a direction for
+
+what's to come. They have a future in common: all these problems involve
+explicit analytical distributions of the leading digits. \newline\ \ \ Their
+treatments all use the idea of the solution of the basic equations
+(\ref{MainFormulation},\ref{MainEq_0},\ref{MainEq_1},\ref{MainEq_2}).
+
+\begin{itemize}
+\item \ DSLD\textbf{\ (\ref{S1})} for \textbf{Power Distribution}
+($b=1$)\textbf{. }One example can be
+\begin{align*}
+PDF  &  =\left\{
+\begin{array}
+[c]{cc}%
+nz^{n-1}, & 0\leq z\leq1,0\leq n,\\
+0, & \text{otherwise}%
+\end{array}
+\right. \\
+F(z)  &  =\left\{
+\begin{array}
+[c]{cc}%
+z^{n}, & 0\leq z\leq1,0\leq n,\\
+0, & \text{otherwise}%
+\end{array}
+\right.  .
+\end{align*}
+Then we have, from (\ref{MainFormulation}),%
+\[
+\rho(k)=%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{m_{\max}}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{m_{\max}}}
+%EndExpansion
+\left(  F(10^{m}(k+1))-F(10^{m}k)\right)  .
+\]
+and from the condition%
+\begin{align*}
+10^{m_{\max}}k  &  <1,\\
+m_{\max}  &  =-\lfloor\log(k)\rfloor-1.
+\end{align*}%
+\[
+\rho(k,n)=%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{-\lfloor\log(k)\rfloor-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{-\lfloor\log(k)\rfloor-1}}
+%EndExpansion
+10^{mn}\left(  (k+1)^{n}-k^{n}\right)  .
+\]%
+\begin{align}
+s  &  =\log(k)-\lfloor\log(k)\rfloor,\label{Model1}\\
+s_{1}  &  =\log(k+1)-\lfloor\log(k)\rfloor,\nonumber\\
+\rho(k,n)  &  =\frac{10^{ns_{1}}-10^{ns}}{10^{n}-1},\nonumber\\
+\Omega(s)  &  =\frac{10^{ns}}{10^{n}-1},\Omega(1)-\Omega(0)=1.\nonumber
+\end{align}
+If $n=1$ then
+\[
+\rho(k,1)=\frac{10^{-\lfloor\log(k)\rfloor}}{9}.
+\]
+When $n\rightarrow0$ we have the NBL:%
+\[
+\rho(k,n\rightarrow0)=\log(k+1)-\log(k)+O(n).
+\]
+
+\end{itemize}
+
+This distribution describes not just the first digits but it is good for a
+collection of first digits. For example, for $k=123$,%
+\begin{align*}
+\rho(123,n)  &  =\frac{1.24^{n}-1.23^{n}}{10^{n}-1},\\
+\rho(123,0.5)  &  =.00185,\\
+\rho(123,1.0)  &  =.001111,\\
+\rho(123,2.0)  &  =.00021.
+\end{align*}
+
+
+\begin{itemize}
+\item Here we can consider similar \textbf{Pareto distribution} ($b=1$) with
+\[
+CDF=1-z^{-n},0<n,1\leq z\leq\infty.
+\]
+with
+\begin{align}
+s  &  =\log(k)-\lfloor\log(k)\rfloor,\label{Model2}\\
+s_{1}  &  =\log(k+1)-\lfloor\log(k)\rfloor,\nonumber\\
+\rho(k,n)  &  =\frac{10^{n}\left(  -10^{-ns_{1}}+10^{-ns}\right)  }{10^{n}%
+-1},\nonumber\\
+\Omega(s)  &  =-\frac{10^{n-ns}}{10^{n}-1},\Omega(1)-\Omega(0)=1..\nonumber
+\end{align}
+\ and
+\[
+\rho(k,1)=\frac{10^{1+\lfloor\log(k)\rfloor}}{9}\left(  \frac{1}{k}-\frac
+{1}{k+1}\right)  ,
+\]
+with convergence to the NBL as $n\rightarrow0$
+\[
+\rho(k,n\rightarrow0)=\log(k+1)-\log(k)+O(n).
+\]
+From (\ref{Model1} and \ref{Model2}) we have for $\Omega(s)$%
+\ from\ \ (\ref{S2c}) a transition to NBL with $n=0.$
+\end{itemize}
+
+\subsubsection{DSLD of the Ratio of Two Numbers from the UD}%
+
+%TCIMACRO{\TeXButton{DofDRatio2UD}{\label{DofDRatio2UD}}}%
+%BeginExpansion
+\label{DofDRatio2UD}%
+%EndExpansion
+
+
+From Appendices
+%TCIMACRO{\TeXButton{\ref{SofFE}}{\ref{SofFE}} }%
+%BeginExpansion
+\ref{SofFE}
+%EndExpansion
+and
+%TCIMACRO{\TeXButton{\ref{R2PNUD}}{\ref{R2PNUD}} }%
+%BeginExpansion
+\ref{R2PNUD}
+%EndExpansion
+we have%
+
+\[
+F(z)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{z}{2} & 0\leq z\leq1,\\
+1-\frac{1}{2z} & 1<z.
+\end{array}
+\right.
+\]%
+\[
+\rho(k,0)=%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{-1}}
+%EndExpansion
+\left(  F(10^{m}(k+1))-F(10^{m}k)\right)  ,1\leq k\leq9.
+\]%
+\begin{equation}
+\rho(k,0)=\frac{1}{18}-\frac{5}{9}\left(  \frac{1}{k+1}-\frac{1}{k}\right)
+,1\leq k\leq9. \label{Rati01}%
+\end{equation}%
+\begin{align*}
+\Omega(s)  &  =A10^{-s}+B10^{s},\\
+A  &  =-\frac{5}{9},B=\frac{1}{18},\\
+\Omega(1)-\Omega(0)  &  =1.
+\end{align*}%
+\begin{align*}
+s_{1}  &  =\log(k+1)-\lfloor\log(k)\rfloor,\\
+s  &  =\log(k)-\lfloor\log(k)\rfloor.
+\end{align*}%
+\[
+\rho(k,L)=\Omega(s_{1})-\Omega(s),k\text{ \ any positive integer}%
+\]%
+\begin{equation}
+\rho(k,L)=\frac{10^{-L}}{18}-\frac{5}{9}\left(  \frac{1}{k+1}-\frac{1}%
+{k}\right)  10^{L},L=\lfloor\log(k)\rfloor,1\leq k\leq9. \label{Ratio2}%
+\end{equation}%
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k,0)}$ & ${\small 0.3333}$ & ${\small 0.1481}$ &
+${\small 0.1019}$ & ${\small 0.08333}$ & ${\small 0.07407}$ &
+${\small 0.06878}$ & ${\small 0.065488}$ & ${\small 0.06327}$ &
+${\small 0.06173}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 2}\label{TableKey2}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\bigskip
+
+We can find the distribution of the second \ digits:%
+\begin{align}
+\varrho_{2}(m)  &  =%
+%TCIMACRO{\dsum \limits_{i=1}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{9}}
+%EndExpansion
+\rho(10i+m,1),\nonumber\\
+\varrho_{2}(m)  &  =%
+%TCIMACRO{\dsum \limits_{i=1}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{9}}
+%EndExpansion
+\left(  \frac{1}{180}+\frac{50}{9(10i+m)}-\frac{50}{9(10i+m+1)}\right)
+,m=0,1,\ldots,9. \label{2dDig}%
+\end{align}%
+\[
+\varrho_{2}(0)=.1294,\varrho_{2}(1)=.1191,\varrho_{2}(2)=.1109,\varrho
+_{2}(5)=.09423,\varrho_{2}(9)=.08169.
+\]
+and the distribution of the third\ digits $p$:
+\begin{align}
+\varrho_{3}(p)  &  =%
+%TCIMACRO{\dsum \limits_{i=1}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{9}}
+%EndExpansion%
+%TCIMACRO{\dsum \limits_{j=0}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=0}^{9}}
+%EndExpansion
+\rho(100i+10j+p,2),\nonumber\\
+\varrho_{3}(p)  &  =%
+%TCIMACRO{\dsum \limits_{i=1}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{9}}
+%EndExpansion%
+%TCIMACRO{\dsum \limits_{j=0}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=0}^{9}}
+%EndExpansion
+\left(  \frac{1}{1800}+\frac{500}{9(100i+10j+p)}-\frac{500}{9(100i+10j+p+1)}%
+\right)  ,\label{3dDig}\\
+p  &  =0,1,\ldots,9.
+\end{align}%
+\[
+\varrho_{3}(0)=.10254,\varrho_{3}(9)=.09759.
+\]
+We have what is almost the uniform distribution with a density close to $0.1$.
+
+\subsubsection{DSLD of the Production of Two Numbers from a UD}%
+
+%TCIMACRO{\TeXButton{P2NfUD}{\label{P2NfUD}}}%
+%BeginExpansion
+\label{P2NfUD}%
+%EndExpansion
+
+
+From Appendix
+%TCIMACRO{\TeXButton{\ref{P2RNUD}}{\ref{P2RNUD}}}%
+%BeginExpansion
+\ref{P2RNUD}%
+%EndExpansion%
+\[
+f_{Z}(z,2)=-\ln(z),0\leq z\leq1.
+\]
+%
+
+\[
+F_{Z}(z,2)=z\left(  1-\ln(z)\right)  ,0\leq z\leq1.
+\]%
+\[
+\rho(k,L=0,2)=%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{m=-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{m=-1}}
+%EndExpansion
+\left(  F_{Z}(10^{m}(k+1),2)-F_{Z}(10^{m}k),2\right)  ,1\leq k\leq9.
+\]%
+\begin{align*}
+\Omega(s)  &  =10^{s}\left(  A+Bs\right)  ,\\
+A  &  =\frac{1}{9}+\frac{10}{81}\ln(10),B=-\frac{\ln(10)}{9}.
+\end{align*}
+%
+
+\begin{align*}
+s_{1}  &  =\log(k+1)-\lfloor\log(k)\rfloor,\\
+s  &  =\log(k)-\lfloor\log(k)\rfloor.
+\end{align*}%
+\begin{align*}
+\rho(k,L,2)  &  =\Omega(s_{1})-\Omega(s),\\
+\Omega(1)-\Omega(0)  &  =1,k\text{ \ any positive integer.}%
+\end{align*}%
+\begin{equation}
+\rho(k,L=0,2)=\frac{1}{9}\left(  k\ln(k)-(k+1)\ln(k+1)+1+\frac{10}{9}%
+\ln(10)\right)  ,1\leq k\leq9. \label{Prod1}%
+\end{equation}%
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k,0,2)}$ & ${\small 0.24135}$ & ${\small 0.18319}$ &
+${\small 0.14551}$ & ${\small 0.11736}$ & ${\small 0.09500}$ &
+${\small 0.07640}$ & ${\small 0.06050}$ & ${\small 0.04660}$ &
+${\small 0.03410}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 3}\label{TableKey3}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion%
+\begin{align}
+\rho(k,L,2)  &  =\frac{10^{\left(  -L\right)  }}{9}\left(  k\ln(k)-(k+1)\ln
+(k+1)+1+\frac{\left(  9L+10\right)  }{9}\ln(10)\right)  ,\label{Prod2}\\
+10^{L}  &  \leq k\leq10^{L+1}-1,L=0,1,\ldots\nonumber
+\end{align}
+
+
+\subsubsection{DSLD of the Production of Three Numbers from a UD}%
+
+%TCIMACRO{\TeXButton{\label{Pro3}}{\label{Pro3}}}%
+%BeginExpansion
+\label{Pro3}%
+%EndExpansion
+
+
+From Appendix
+%TCIMACRO{\TeXButton{\ref{PRNUD}}{\ref{PRNUD}} }%
+%BeginExpansion
+\ref{PRNUD}
+%EndExpansion
+we have
+\[
+f_{Z}(z,3)=\frac{\ln(z)^{2}}{2},0\leq z\leq1.
+\]
+%
+
+\[
+F_{Z}(z,3)=\frac{z}{2}\left(  \ln(z)^{2}-2\ln(z)+2\right)  ,0\leq z\leq1.
+\]%
+\begin{align*}
+\rho(k,0)  &  =\frac{1}{18}\left(  (k+1)\ln(k+1)^{2}-k\ln(k)^{2}\right) \\
+&  -\left(  \frac{1}{9}+\frac{10}{81}\ln(10)\right)  \left(  (k+1)\ln
+(k+1)-k\ln(k)\right) \\
+&  +\frac{55}{729}\left(  \ln(10)\right)  ^{2}+\frac{10}{81}\ln(10)+\frac
+{1}{9}%
+\end{align*}
+%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k,0)}$ & ${\small 0.30066}$ & ${\small 0.18817}$ &
+${\small 0.13194}$ & ${\small 0.09864}$ & ${\small 0.07699}$ &
+${\small 0.06290}$ & ${\small 0.05260}$ & ${\small 0.04630}$ &
+${\small 0.04179}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 4}\label{TableKey4}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+%
+
+\begin{align*}
+\Omega(s)  &  =10^{s}\left(  A+Bs+Cs^{2}\right)  ,\\
+C  &  =\frac{\ln(10)^{2}}{18},B=-\frac{\ln(10)}{81}(9+10\ln(10)),\\
+A  &  =\frac{1}{9}+\frac{10}{81}\ln(10)+\frac{55}{729}\ln(10)^{2}\\
+\Omega(1)-\Omega(0)  &  =1.
+\end{align*}%
+\begin{align*}
+s_{1}  &  =\log(k+1)-\lfloor\log(k)\rfloor,\\
+s  &  =\log(k)-\lfloor\log(k)\rfloor.
+\end{align*}%
+\[
+\rho(k)=\Omega(s_{1})-\Omega(s),k\text{ \ any positive integer}%
+\]
+
+
+\subsubsection{DSLD of the Production of $n$ Numbers from a UD}%
+
+%TCIMACRO{\TeXButton{PnNfUD}{\label{PnNfUD}}}%
+%BeginExpansion
+\label{PnNfUD}%
+%EndExpansion
+
+
+From Appendix
+%TCIMACRO{\TeXButton{\ref{PRNUD}}{\ref{PRNUD}}}%
+%BeginExpansion
+\ref{PRNUD}%
+%EndExpansion%
+\begin{align*}
+z  &  =%
+%TCIMACRO{\dprod \limits_{i=1}^{n}}%
+%BeginExpansion
+{\displaystyle\prod\limits_{i=1}^{n}}
+%EndExpansion
+x_{i},\\
+z  &  \leq x_{1}\leq1,\\
+x_{n}  &  =z\left(
+%TCIMACRO{\dprod \limits_{i=1}^{n-1}}%
+%BeginExpansion
+{\displaystyle\prod\limits_{i=1}^{n-1}}
+%EndExpansion
+x_{i}\right)  ^{-1},\\
+z\left(
+%TCIMACRO{\dprod \limits_{i=1}^{j-1}}%
+%BeginExpansion
+{\displaystyle\prod\limits_{i=1}^{j-1}}
+%EndExpansion
+x_{i}\right)  ^{-1}  &  \leq x_{j}\leq1,j=2,\ldots,n-1,\\
+J  &  =\frac{\partial(x_{1},\ldots,x_{n})}{\partial(x_{1},\ldots,z)}%
+=\frac{\partial x_{n}}{\partial z}=\left(
+%TCIMACRO{\dprod \limits_{i=1}^{n-1}}%
+%BeginExpansion
+{\displaystyle\prod\limits_{i=1}^{n-1}}
+%EndExpansion
+x_{i}\right)  ^{-1}.
+\end{align*}%
+\[
+f_{Z}(z,n)=%
+%TCIMACRO{\dint \limits_{x_{1}=z}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x_{1}=z}^{1}}
+%EndExpansion%
+%TCIMACRO{\dint \limits_{x_{2}=z/x_{1}}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x_{2}=z/x_{1}}^{1}}
+%EndExpansion
+\ldots%
+%TCIMACRO{\dint \limits_{x_{n-1}=z/\left(  x_{1}\ldots x_{n-2}\right)  }^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x_{n-1}=z/\left(  x_{1}\ldots x_{n-2}\right)  }%
+^{1}}
+%EndExpansion
+J^{-1}dx_{n-1}\ldots dx_{2}dx_{1},2\leq n.
+\]%
+\[
+f_{Z}(z,n)=\frac{(-\ln(z))^{(n-1)}}{(n-1)!},0\leq z\leq1.
+\]%
+\[
+F_{Z}(z,n)=\frac{\Gamma(n,-\ln(z))}{\Gamma(n)},0\leq z\leq1.
+\]
+where%
+\begin{align*}
+\Gamma(a,x)  &  =%
+%TCIMACRO{\dint \limits_{x}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x}^{\infty}}
+%EndExpansion
+t^{a-1}\exp(-t)dt,\\
+\Gamma(a)  &  =%
+%TCIMACRO{\dint \limits_{0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{0}^{\infty}}
+%EndExpansion
+t^{a-1}\exp(-t)dt=(a-1)!.
+\end{align*}
+Then as $n\rightarrow+\infty$, we have, from Appendix
+%TCIMACRO{\TeXButton{\ref{PRNUD}}{\ref{PRNUD}}}%
+%BeginExpansion
+\ref{PRNUD}%
+%EndExpansion
+%
+
+\begin{align*}
+\Omega\left(  s\right)   &  =s+const,\\
+\rho(k,n  &  \rightarrow+\infty)=\log(k+1)-\log(k).
+\end{align*}
+
+
+This is the distribution of the NBL. The table presents the values of
+$\rho(k,n\rightarrow+\infty)$ for some parameters%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small n}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ & ${\small 5}$ &
+${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}$\\\hline
+${\small \rho(1,n)}$ & ${\small .24135}$ & ${\small .30066}$ &
+${\small .30764}$ & ${\small .30279}$ & ${\small .30068}$ & ${\small .30074}$
+& ${\small .30100}$ & ${\small .30106}$\\\hline
+${\small \rho(9,n)}$ & ${\small .03418}$ & ${\small .04167}$ &
+${\small .04585}$ & ${\small .04619}$ & ${\small .04585}$ & ${\small .04573}$
+& ${\small .04573}$ & ${\small .04573}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 5}\label{TableKey5}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+%
+
+\[
+\log(2)=0.30103,1-\log(9)=0.045757.
+\]
+
+
+\section{Analysis of DSLD of Other Continuous Distributions}%
+
+%TCIMACRO{\TeXButton{OtherContDist}{\label{OtherContDist}}}%
+%BeginExpansion
+\label{OtherContDist}%
+%EndExpansion
+
+
+\subsection{DSLD for LogNormal Distribution}%
+
+%TCIMACRO{\TeXButton{LogNormDis}{\label{LogNormDist}}}%
+%BeginExpansion
+\label{LogNormDist}%
+%EndExpansion%
+\begin{align*}
+f(z)  &  =\frac{1}{\sigma z\sqrt{2\pi}}\exp\left(  -\frac{\left(  \ln
+(z)-\mu\right)  ^{2}}{2\sigma^{2}}\right)  ,\\
+F(z)  &  =\frac{1}{2}+\frac{1}{2}\operatorname{erf}\left(  \frac{\left(
+\ln(z)-\mu\right)  \sqrt{2}}{2\sigma}\right)  ,0\leq z<\infty.
+\end{align*}
+Then%
+\begin{equation}
+Q_{1}\left(  s,\sigma\right)  =const+%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\left(  A_{n}\sin\left(  ns\right)  +B_{n}\cos\left(  ns\right)  \right)  .
+\label{LogNorm1}%
+\end{equation}%
+\begin{align*}
+\digamma &  =1,\\
+A_{n}  &  =\frac{1}{n\pi}\exp\left(  -\frac{2\pi^{2}\sigma^{2}}{\ln(10)^{2}%
+}n^{2}\right)  ,B_{n}=0.
+\end{align*}%
+\begin{align}
+\rho(k,\mu,\sigma &  \rightarrow0)=\log(k+1)-\log(k)+Q_{1}\left(  s_{1}%
+,\sigma\right)  -Q_{1}\left(  s,\sigma\right)  .\label{LogNorm2}\\
+&  s_{1}=2\pi\left(  \log(1+k)-\frac{\mu}{\ln(10)}\right)  ,s=2\pi\left(
+\log(k)-\frac{\mu}{\ln(10)}\right)  .\nonumber
+\end{align}
+
+
+From this we obtain that $\rho(k,\mu,\sigma)$ is a periodic function of $\mu
+$\ \ with period $\ln(10).$
+
+\bigskip As $\sigma\rightarrow0$ ($\mu=0$) we have%
+\[
+\rho(k)=\Omega(\log(k+1)-\left\lfloor \log(k)\right\rfloor )-\Omega
+(\log(k)-\left\lfloor \log(k)\right\rfloor )
+\]%
+\[
+\rho(k)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{2}, & \log(k)=\left\lfloor \log(k)\right\rfloor ,\\
+\frac{1}{2}, & \log(k+1)=\left\lfloor \log(k)\right\rfloor +1.
+\end{array}
+\right.
+\]
+Where%
+\begin{align*}
+\Omega(x)  &  =\left\{
+\begin{array}
+[c]{cc}%
+-\frac{1}{2}, & x=0,\\
+\frac{1}{2}, & x=1,\\
+0, & \text{other}.
+\end{array}
+\right.  ,\\
+\Omega(1)-\Omega(0)  &  =1.
+\end{align*}
+
+
+As a result of the summation,%
+\begin{equation}
+Q_{1}\left(  s,\sigma\right)  =A_{0}+\arctan\left(  \frac{\beta\sin(2\pi
+s)}{1-\beta\cos(2\pi s)}\right)  ,\beta=\exp\left(  -\frac{2\pi^{2}\sigma^{2}%
+}{\ln(10)^{2}}\right)  .
+\end{equation}
+
+
+If we compare the results of our approach and the numerical results of
+stochastic modeling
+%TCIMACRO{\TeXButton{citeFormann}{\cite{formann0}}}%
+%BeginExpansion
+\cite{formann0}%
+%EndExpansion
+. \ We can see that despite the fact that it was used in the numerical
+modeling of $10^{7}$ samples, the accuracy of the approximation is quite poor.
+The approximation errors lie in the range of $15\%-100\%$.
+
+\subsection{DSLD for a First Family of Distributions}%
+
+%TCIMACRO{\TeXButton{DfED}{\label{DfWD}}}%
+%BeginExpansion
+\label{DfWD}%
+%EndExpansion
+
+
+Here we will look at one type of density function, that underlying
+distributions that describe a number of important and frequently used
+distributions
+%TCIMACRO{\TeXButton{\cite{walck} }{\cite{walck} }}%
+%BeginExpansion
+\cite{walck}
+%EndExpansion
+.%
+\[
+\digamma=%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz.
+\]
+
+
+The model distribution is a continuous probability distribution with
+probability density function given by%
+\begin{equation}
+f(z)=\left\{
+\begin{array}
+[c]{cc}%
+0, & z<0\\
+\digamma\beta\left(  \frac{z}{a}\right)  ^{\alpha}\exp\left(  -\left(
+\frac{z}{a}\right)  ^{\beta}\right)  a^{(-1)}\Gamma\left(  \frac{\alpha
++1}{\beta}\right)  ^{-1}, & 0\leq z,0<a,0<\alpha,0<\beta.
+\end{array}
+\right.  \label{defWD}%
+\end{equation}
+
+
+Because from general form we get
+\begin{equation}
+\rho(k,a,\alpha,\beta)=%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{\infty}}
+%EndExpansion
+\left(  F(\frac{10^{m}(k+1)}{a}-F\left(  \frac{10^{m}k}{a}\right)  \right)  .
+\label{WA_rho}%
+\end{equation}
+
+
+From the leading term on the right hand side of (\ref{WA_rho}) we have%
+
+\begin{align*}
+&  m+\log(k)-\log(a)\\
+&  =m+\lfloor\log(k)\rfloor-\lfloor\log(a)\rfloor\\
+&  +\log(k)-\lfloor\log(k)\rfloor-\log(a)+\lfloor\log(a)\rfloor
+\end{align*}
+and we have \ (\ref{WA_rho}) with an infinite range of summation. Now we can
+introduce a new dummy variable $m^{\prime}$
+\[
+m=m^{\prime}-\lfloor\log(k)\rfloor+\lfloor\log(a)\rfloor.
+\]
+After some calculation we have%
+\begin{align*}
+\rho(k,a,\alpha,\beta)  &  =\log(k+1)-\log(k)+\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+A_{n}(\alpha,\beta)\left(  \sin\left(  ns_{1}\right)  -\sin\left(  ns\right)
+\right)  +\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+B_{n}(\alpha,\beta)\left(  \cos\left(  ns_{1}\right)  -\cos\left(  ns\right)
+\right)  ,\\
+s_{1}  &  =2\pi\log\left(  \frac{k+1}{a}\right)  ,s=2\pi\log\left(  \frac
+{k}{a}\right)  .
+\end{align*}
+\bigskip
+
+Where%
+\begin{align}
+A_{n}(\alpha,\beta)+iB_{n}(\alpha,\beta)  &  =\digamma\frac{1}{\pi n}%
+\Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}-Y\imath\right)
+\Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}\right)  ^{-1},\\
+Y  &  =\frac{2\pi n}{\beta\ln(10)},
+\end{align}
+
+
+From this we obtain that $\rho(k,a,\alpha,\beta)$\ is a periodic function of
+$\log\left(  a\right)  $ with period $1$.
+
+A useful property of the $\Gamma$ function is%
+\begin{equation}
+\frac{\left\vert \Gamma\left(  x+\imath y\right)  \right\vert }{\left\vert
+\Gamma\left(  x\right)  \right\vert }\leq1,\text{ for any real }x\text{ and
+}y\text{. } \label{Gamma1}%
+\end{equation}
+
+
+\noindent then%
+\begin{equation}
+\sqrt{A_{n}(\alpha,\beta)^{2}+B_{n}(\alpha,\beta)^{2}}\leq\frac{\digamma}{\pi
+n}. \label{AB1}%
+\end{equation}
+
+
+\subsection{Examples}
+
+\begin{itemize}
+\item \textbf{Exponential Distribution}
+\end{itemize}
+
+%
+
+\[
+f(z,\lambda)=\frac{1}{\lambda}\exp\left(  -\frac{z}{\lambda}\right)
+,0<\lambda,0\leq z.
+\]%
+\begin{align*}
+\digamma &  =1,\alpha=0,\beta=1,\\
+A_{n}+iB_{n}  &  =\frac{1}{\pi n}\Gamma\left(  1-\imath Y\right)
+\Gamma\left(  1\right)  ^{-1},\\
+\Lambda(n)^{2}  &  =2\left(  n\ln(10)\sinh\left(  \frac{2\pi^{2}n}{\ln
+(10)}\right)  \right)  ^{-1},\\
+s_{1}  &  =2\pi\log\left(  \frac{k+1}{\lambda}\right)  ,s=2\pi\log\left(
+\frac{k}{\lambda}\right)  .
+\end{align*}%
+\begin{align*}
+\Lambda(1)  &  =.01813,A_{1}=.01308,B_{1}=-.01256,\\
+\Lambda(2)  &  =1.768\times10^{-4},A_{2}=2.484\times10^{-5},B_{2}%
+=1.749\times10^{-4}.
+\end{align*}
+
+
+\begin{itemize}
+\item \textbf{Weibull Distribution}
+\[
+f(z,\nu)=\frac{\beta}{a}\left(  \frac{z}{a}\right)  ^{\beta-1}\exp\left(
+-\left(  \frac{z}{a}\right)  ^{\beta}\right)  ,0\leq z.
+\]%
+\begin{align*}
+\digamma &  =1,\alpha=\beta-1,0<\beta,\\
+A_{n}(\beta)-iB_{n}(\beta)  &  =\frac{2i}{\beta\ln(10)}\Gamma\left(
+1+\imath\frac{Y}{\beta}\right)  ,\\
+\Lambda(n,\beta)^{2}  &  =\frac{2}{\beta\ln(10)n}\sinh\left(  \frac{2\pi^{2}%
+n}{\beta\ln(10)}\right)  ^{-1},\\
+s_{1}  &  =2\pi\log\left(  \frac{k+1}{a}\right)  ,s=2\pi\log\left(  \frac
+{k}{a}\right)  .
+\end{align*}%
+\begin{align*}
+\Lambda(1,2)  &  =.1093,A_{1}(2)=.1068,B_{1}(2)=.02362,\\
+\Lambda(2,2)  &  =9.065\times10^{-3},A_{2}(2)=.006552,B_{2}(2)=-.006283.
+\end{align*}%
+\begin{align*}
+\rho(k,a,n)  &  =\log(k+1)-\log(k)\\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+A_{j}(\sin(js_{1})-\sin(js))\\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+B_{j}(\cos(js_{1})-\cos(js)),\\
+s_{1}  &  =2\pi\frac{\log(k+1)}{a},s=2\pi\frac{\log(k)}{a}.
+\end{align*}
+
+
+\noindent with $1\ll\beta$ we have%
+\begin{align*}
+A_{n}(\beta)  &  =\frac{1}{\pi n}+o\left(  \frac{1}{\beta}\right)  ,\\
+B_{n}(\beta)  &  =\frac{2\gamma}{\beta\ln(10)}+o\left(  \frac{1}{\beta^{2}%
+}\right)  ,\gamma=.57721
+\end{align*}
+
+
+\item \textbf{ChiSquare Distribution}%
+\[
+f(z,\nu)=\left(  \frac{z}{2}\right)  ^{\frac{\nu}{2}-1}\exp\left(  -\frac
+{z}{2}\right)  \left(  2\Gamma\left(  \frac{\nu}{2}\right)  \right)
+^{-1},0\leq z.
+\]%
+\[
+\digamma=1,a=2,\alpha=\frac{\nu}{2}-1,\beta=1,
+\]%
+\begin{align}
+A_{n}(\nu)-iB_{n}(\nu)  &  =\frac{1}{\pi n}\Gamma\left(  \frac{\nu}{2}%
++Y\imath\right)  \Gamma\left(  \frac{\nu}{2}\right)  ^{-1},\\
+Y  &  =\frac{2\pi n}{\ln(10)},\\
+s_{1}  &  =2\pi\log\left(  \frac{k+1}{2}\right)  ,s=2\pi\log\left(  \frac
+{k}{2}\right)  .
+\end{align}%
+\begin{align*}
+A_{1}(7)  &  =-.1041,B_{1}(7)=.01788,\\
+A_{1}(7)  &  =.0005160,B_{1}(7)=-.004204.
+\end{align*}%
+\begin{align*}
+\rho(k,a,n)  &  =\log(k+1)-\log(k)\\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+A_{j}(\sin(js_{1})-\sin(js))\\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+B_{j}(\cos(js_{1})-\cos(js)),\\
+s_{1}  &  =2\pi\frac{\log(k+1)}{2},s=2\pi\frac{\log(k)}{2}.
+\end{align*}
+
+
+With $1\ll\nu$
+\begin{align*}
+A_{n}(\nu)  &  =\frac{1}{\pi n}\cos\left(  2\pi n\log\left(  \frac{\nu}%
+{2}\right)  \right)  ,\\
+B_{n}(\nu)  &  =-\frac{1}{\pi n}\sin\left(  2\pi n\log\left(  \frac{\nu}%
+{2}\right)  \right)  .\\
+Q_{1}(k,1  &  \ll\nu)=%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\frac{1}{\pi n}\sin\left(  2\pi n\log\left(  \frac{k}{\nu}\right)  \right)
+\end{align*}%
+\begin{align*}%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\frac{1}{\pi n}\sin\left(  2\pi nX\right)   &  =\frac{1}{\pi}\arctan\left(
+\frac{\sin(2\pi X)}{1-\cos(2\pi X)}\right) \\
+&  =\frac{1}{2}-(X-\left\lfloor X\right\rfloor ).
+\end{align*}
+
+
+\item \textbf{Exponential Distribution}%
+\[
+f(z,\nu)=\frac{1}{a}\exp\left(  -\frac{z}{a}\right)  ,0\leq z.
+\]%
+\begin{align}
+\digamma &  =1,\beta=1,\alpha=0,\\
+A_{n}-iB_{n}  &  =\frac{2i}{\ln(10)}\Gamma\left(  Y\imath\right)  ,\nonumber\\
+A_{n}{}^{2}+B_{n}{}^{2}  &  =\frac{2}{n\ln(10)\sinh(\pi Y)}.\nonumber\\
+Y  &  =\frac{2\pi n}{\ln(10)}.\nonumber
+\end{align}%
+\begin{align}
+A_{1}  &  =.01308,B_{1}=-.01256,\\
+A_{2}  &  =-.00002436,B_{2}=.000175.\nonumber
+\end{align}%
+\begin{align*}
+\rho(k,a,n)  &  =\log(k+1)-\log(k)\\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+A_{j}(\sin(js_{1})-\sin(js))\\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+B_{j}(\cos(js_{1})-\cos(js)),\\
+s_{1}  &  =2\pi\frac{\log(k+1)}{a},s=2\pi\frac{\log(k)}{a}.
+\end{align*}%
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$\ln(10)k(\rho
+%(k)-\log(k+1)+\log(k))$ vs $s$=$\log(k)$}}{}{expdist1.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/ExpDist1.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/ExpDist1.png}%
+\\
+$\ln(10)k(\rho(k)-\log(k+1)+\log(k))$ vs $s$=$\log(k)$%
+\end{center}}}
+%EndExpansion
+\caption{Exponential Distribution}\label{figureKey3}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\item \textbf{Gamma Distribution}%
+\[
+f(z,a,\delta)=\frac{1}{a}\left(  \frac{z}{a}\right)  ^{\delta-1}\exp\left(
+-\frac{z}{a}\right)  \Gamma\left(  \delta\right)  ^{-1},0\leq z.
+\]%
+\[
+\digamma=1,\alpha=\delta-1,\beta=1,0<\delta,
+\]%
+\begin{align}
+A_{n}(\delta)-iB_{n}(\delta)  &  =\frac{1}{\pi n}\Gamma\left(  \delta
++Yi\right)  \Gamma\left(  \delta\right)  ^{-1},\\
+A_{n}(\delta)^{2}+B_{n}(\delta)^{2}  &  =\frac{1}{n^{2}\pi^{2}}\Gamma\left(
+\delta+Yi\right)  \Gamma\left(  \delta-Yi\right)  \Gamma\left(  \delta\right)
+^{-2},.\\
+Y  &  =\frac{2\pi n}{\ln(10)},\\
+s_{1}  &  =2\pi\log\left(  \frac{k+1}{a}\right)  ,s=2\pi\log\left(  \frac
+{k}{a}\right)  .
+\end{align}%
+\begin{align}
+A_{1}(2)  &  =-.02117,B_{1}(2)=-.04829,\\
+A_{2}(2)  &  =.00093,B_{2}(2)=.0003105.
+\end{align}
+
+
+We have a non-monotonic behavior of $\rho(k,a,\delta)$ as a function of
+$\delta$
+\end{itemize}
+
+%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+$\delta$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(1,1,\delta)}$ & ${\small .32960}$ & ${\small .3432}$ &
+${\small .2468}$ & ${\small .1342}$ & ${\small .0782}$ & ${\small .0829}$ &
+${\small .1342}$ & ${\small .2205}$ & {\small .}$3309$\\\hline
+${\small \rho(9,1,\delta)}$ & ${\small .048923}$ & ${\small .038394}$ &
+${\small .020912}$ & ${\small .016467}$ & ${\small .027004}$ &
+${\small .04886}$ & ${\small .07675}$ & ${\small .10370}$ & ${\small .12285}%
+$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 6}\label{TableKey6}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\bigskip
+
+We can prove that as $\delta\rightarrow+\infty$, the function $\rho
+(k,a,\delta)$ has $1$-periodic behavior in $\log(\delta).$%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$\rho(k=1,a=1,\delta
+%)/\log(2)$ vs $\ s=\log(\delta)$}}{}{gamman.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/GammaN.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/GammaN.png}%
+\\
+$\rho(k=1,a=1,\delta)/\log(2)$ vs $\ s=\log(\delta)$%
+\end{center}}}
+%EndExpansion
+\caption{Gamma Distributio}\label{figureKey4}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip Similar analyses are possible for other distributions, like the
+$\chi^{2}$-distribution, Student's $t$-distribution, \ the Fisher
+\ $F$-distribution, and others.
+
+\begin{itemize}
+\item \textbf{Normal Distribution} with $\mu=0$%
+\[
+f(z,\sigma)=\frac{1}{\sigma\sqrt{2\pi}}\exp\left(  -\frac{z^{2}}{2\sigma^{2}%
+}\right)  ,0\leq z.
+\]%
+\begin{equation}
+\digamma=\frac{1}{2},a=\sigma\sqrt{2},\alpha=0,\beta=2, \label{Nomal0}%
+\end{equation}%
+\begin{align}
+A_{n}-iB_{n}  &  =\frac{\digamma}{\pi n}\Gamma\left(  \frac{1}{2}%
++Y\imath\right)  \Gamma\left(  \frac{1}{2}\right)  ^{-1},Y=\frac{\pi n}%
+{\ln(10)},\\
+\Lambda(n)^{2}  &  =\left(  4\pi^{2}n^{2}\cosh\left(  \frac{\pi^{2}n}{\ln
+(10)}\right)  \right)  ^{-1},\nonumber\\
+s_{1}  &  =2\pi\log\left(  \frac{k+1}{\sigma\sqrt{2}}\right)  ,s=2\pi
+\log\left(  \frac{k}{\sigma\sqrt{2}}\right)  .\nonumber
+\end{align}%
+\begin{align*}
+\rho(k,\sigma,n)  &  =\frac{1}{2}\log\left(  1+\frac{1}{k}\right)  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+A_{n}\left(  \sin\left(  js_{1}\right)  -\sin\left(  js\right)  \right) \\
+&  +%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+B_{n}\left(  \cos\left(  js_{1}\right)  -\cos\left(  js\right)  \right)  .
+\end{align*}
+From this we have that $\rho(k,\mu)$ is a periodic function of $\log\left(
+\sigma\right)  $ with period $1.$%
+\begin{align*}
+\Lambda(1)  &  =.02640,A_{1}=.01621,B_{1}=.02081,\\
+\Lambda(2)  &  =1.548\times10^{-3},A_{2}=1,546\times10^{-3},B_{2}%
+=-4.002\times10^{-5},\\
+\Lambda(3)  &  =1.210\times10^{-4}.
+\end{align*}
+We can compare the values of $\rho(k,\sigma,n)$, depending on how many terms
+of the following are taken into account.%
+\[
+\frac{\rho(1,1,0)}{\rho(1,1,\infty)}-1=-.1627,\frac{\rho(1,1,1)}%
+{\rho(1,1,\infty)}-1=-1.634\times10^{-2},\frac{\rho(1,1,2)}{\rho(1,1,\infty
+)}-1=1.202\times10^{-6}%
+\]
+
+\end{itemize}
+
+\subsection{A Second Family of Distributions}
+
+Another class of distributions
+%TCIMACRO{\TeXButton{\cite{walck} }{\cite{walck}} }%
+%BeginExpansion
+\cite{walck}
+%EndExpansion
+is%
+\begin{equation}
+f(z)=\left\{
+\begin{array}
+[c]{cc}%
+0, & z<0\\%
+\begin{array}
+[c]{c}%
+\digamma a^{(-1)}\beta\left(  \frac{z}{a}\right)  ^{\alpha}\left(  1+\left(
+\frac{z}{a}\right)  ^{\beta}\right)  ^{-\delta}\Gamma\left(  \delta\right)
+\Gamma\left(  \delta-\frac{\alpha}{\beta}-\frac{1}{\beta}\right)  ^{-1}\\
+\Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}\right)  ^{-1},
+\end{array}
+&
+\begin{array}
+[c]{c}%
+0\leq z,0<a,0<\alpha,\\
+0<\beta,0<\delta-\frac{\alpha}{\beta}-\frac{1}{\beta}.
+\end{array}
+\end{array}
+\right.
+\end{equation}%
+\begin{align*}
+\rho(k,a,\alpha,\beta,\delta)  &  =\digamma\left(  \log(k+1)-\log(k)\right)
++\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+A_{n}(\alpha,\beta,\delta)\left(  \sin\left(  ns_{1}\right)  -\sin\left(
+ns\right)  \right)  +\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+B_{n}(\alpha,\beta,\delta)\left(  \cos\left(  ns_{1}\right)  -\cos\left(
+ns\right)  \right)  ,\\
+s_{1}  &  =2\pi n\log\left(  \frac{k+1}{a}\right)  ,s=2\pi n\log\left(
+\frac{k}{a}\right)
+\end{align*}
+From this we have that $\rho(k,a,\alpha,\beta,\delta)$ is a periodic function
+of $\log\left(  a\right)  $\ with period $1.$
+
+Where%
+\begin{align}
+A_{n}(\alpha,\beta,\delta)-iB_{n}(\alpha,\beta,\delta)  &  =\digamma\frac
+{1}{\pi n}\Gamma\left(  \delta-\frac{\alpha}{\beta}-\frac{1}{\beta}-Yi\right)
+\Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}+Yi\right) \nonumber\\
+&  \Gamma\left(  \delta-\frac{\alpha}{\beta}-\frac{1}{\beta}\right)
+^{-1}\Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}\right)  ^{-1},\\
+Y  &  =\frac{2\pi n}{\beta\ln(10)},i^{2}=-1,\nonumber
+\end{align}
+
+
+If
+\[
+\delta=\frac{2(\alpha+1)}{\beta}%
+\]
+
+
+\noindent then
+\begin{align*}
+A_{n}(\alpha,\beta)  &  =\digamma\frac{1}{\pi n}\Gamma\left(  \frac{\alpha
+}{\beta}+\frac{1}{\beta}-Yi\right)  \Gamma\left(  \frac{\alpha}{\beta}%
++\frac{1}{\beta}+Yi\right) \\
+&  \Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}\right)  ^{-1}%
+\Gamma\left(  \frac{\alpha}{\beta}+\frac{1}{\beta}\right)  ^{-1}\\
+B_{n}(\alpha,\beta)  &  =0.
+\end{align*}
+
+
+\begin{itemize}
+\item \textbf{Cauchy Distribution} with $\mu=0$%
+\[
+f(z,a)=\frac{1}{\pi a}\frac{1}{1+\left(  \frac{z}{a}\right)  ^{2}},0<a.
+\]%
+\[
+\digamma=\frac{1}{2},\alpha=0,\beta=2,\delta=1
+\]%
+\begin{align*}
+A_{n}  &  =\frac{\digamma}{\pi n}\Gamma\left(  \frac{1}{2}-Y\imath\right)
+\Gamma\left(  \frac{1}{2}+Y\imath\right)  \Gamma\left(  \frac{1}{2}\right)
+^{-2}\\
+&  =\digamma\left(  \pi n\cosh\left(  \frac{\pi^{2}n}{\ln(10)}\right)
+\right)  ^{-1},Y=\frac{\pi n}{\ln(10)},\\
+B_{n}  &  =0.
+\end{align*}%
+\begin{equation}
+A_{1}=.004380,A_{2}=.000063012.
+\end{equation}
+\bigskip
+
+\item \textbf{$F$-Ratio Distribution}%
+\[
+f(z)=\left(  \frac{\nu}{\omega}\right)  ^{\frac{\nu}{2}}z^{\frac{\nu}{2}%
+-1}\left(  1+\frac{z\nu}{\omega}\right)  ^{-\delta}\Gamma\left(
+\delta\right)  \Gamma\left(  \delta-\frac{\alpha}{\beta}-\frac{1}{\beta
+}\right)  ^{-1},\delta=\frac{\nu}{2}+\frac{\omega}{2},0<\nu,0<\omega.
+\]%
+\[
+\digamma=1,a=\frac{\omega}{\nu},\alpha=\frac{\nu}{2}-1,\beta=1,\delta
+=\frac{\nu}{2}+\frac{\omega}{2}%
+\]%
+\begin{align}
+A_{n}(\nu,\omega)-iB_{n}(\nu,\omega)  &  =\frac{1}{\pi n}\Gamma\left(
+\frac{\omega}{2}-Y\imath\right)  \Gamma\left(  \frac{\nu}{2}+Y\imath\right) \\
+&  \Gamma\left(  \frac{\omega}{2}\right)  ^{-1}\Gamma\left(  \frac{\nu}%
+{2}\right)  ^{-1},\nonumber\\
+Y  &  =\frac{2\pi n}{\ln(10)},\nonumber\\
+s_{1}  &  =2\pi\log\left(  \frac{\nu(k+1)}{\omega}\right)  ,s=2\pi\log\left(
+\frac{\nu k}{\omega}\right)  .\nonumber
+\end{align}
+
+
+If $\omega=\nu$, we have%
+\begin{align*}
+A_{n}(\nu,\nu)  &  =\frac{1}{\pi n}\Gamma\left(  \frac{\nu}{2}-Yi\right)
+\Gamma\left(  \frac{\nu}{2}+Yi\right)  \Gamma\left(  \frac{\nu}{2}\right)
+^{-2},\\
+B_{n}(\nu,\nu)  &  =0,Y=\frac{2\pi n}{\ln(10)}.
+\end{align*}%
+\begin{equation}
+A_{1}(3,3)=.003705,A_{2}(3,3)=.00000136.
+\end{equation}
+
+\end{itemize}
+
+One example of this type of distribution is the ratio of two positive random
+numbers ($\alpha=0,\beta=2,\delta=1$).
+
+\subsubsection{DSLD for the Ratio of two Positive Numbers}%
+
+%TCIMACRO{\TeXButton{DofLD2P}{\label{DofLD2P}}}%
+%BeginExpansion
+\label{DofLD2P}%
+%EndExpansion
+
+
+If we take any two positive numbers $x$ and $y$, then what is the distribution
+of the leading significant digits of $\frac{y}{x}$?
+
+Introduce new variables $R$ and $\varphi$ (where $0<\varphi<\frac{\pi}{2}%
+,0<R$)
+\begin{align*}
+x  &  =R\cos(\varphi),y=R\sin(\varphi),\\
+\frac{y}{x}  &  =\tan(\varphi).
+\end{align*}
+
+
+Then for the leading digit $k$ we have%
+\[
+10^{m}k<\tan(\varphi_{k})<10^{m}(k+1),1\leq k\leq9,-\infty<m<\infty,m\text{ is
+integer.}%
+\]
+and so%
+\[
+\arctan(10^{m}k)<\varphi_{k}<\arctan(10^{m}(k+1)).
+\]
+%
+
+\begin{equation}
+\varphi_{k}=%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{\infty}}
+%EndExpansion
+\left(  \arctan(10^{m}(k+1))-\arctan(10^{m}k)\right)  . \label{Prob0}%
+\end{equation}
+$\rho(k)$ of leading digit $k$ is%
+\begin{equation}
+\rho(k)=\frac{2}{\pi}\varphi_{k}. \label{Prob1}%
+\end{equation}
+%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k)}$ & ${\small .3092}$ & ${\small .1691}$ & ${\small .1184}$ &
+${\small .09361}$ & ${\small .07903}$ & ${\small .06824}$ & ${\small .06023}$
+& ${\small .05394}$ & ${\small .04811}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 7}\label{TableKey7}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\bigskip It is clear that this distribution is connected with the Cauchy
+distribution $\left(  PDF=\frac{1}{\pi}\frac{1}{1+z^{2}}\right)  $
+
+Here we present some areas of $\frac{2}{\pi}\left(  \arctan(10^{m}%
+(k+1))-\arctan(10^{m}k)\right)  $ for different $k$\ and $m$:\ %
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{4.3474in}{0.4238in}{0in}{\Qcb{$k=1$ and
+%\ $m=-2,-1,0,1$}}{}{ratio2_k_1.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 4.3474in;  height 0.4238in;  depth 0in;
+%original-width 4.2964in;  original-height 0.3943in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../../MY TeX Work/Ratio2_k_1.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{4.3474in}{\begin{center}
+\includegraphics[
+natheight=0.394300in,
+natwidth=4.296400in,
+height=0.4238in,
+width=4.3474in
+]%
+{../../MY TeX Work/Ratio2_k_1.png}%
+\\
+$k=1$ and \ $m=-2,-1,0,1$%
+\end{center}}}
+%EndExpansion
+%TCIMACRO{\FRAME{itbpFU}{4.3474in}{0.4238in}{0in}{\Qcb{$k=2$ and
+%\ $m=-2,-1,0,1,2$}}{}{ratio2_k_2.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 4.3474in;  height 0.4238in;  depth 0in;
+%original-width 4.2964in;  original-height 0.3943in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../../MY TeX Work/Ratio2_k_2.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{4.3474in}{\begin{center}
+\includegraphics[
+natheight=0.394300in,
+natwidth=4.296400in,
+height=0.4238in,
+width=4.3474in
+]%
+{../../MY TeX Work/Ratio2_k_2.png}%
+\\
+$k=2$ and \ $m=-2,-1,0,1,2$%
+\end{center}}}
+%EndExpansion
+%TCIMACRO{\FRAME{itbpFU}{4.3474in}{0.4238in}{0in}{\Qcb{$k=3$
+%for\ $m=-2,-1,0,1,2$}}{}{ratio2_k_3.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 4.3474in;  height 0.4238in;  depth 0in;  original-width 4.2964in;
+%original-height 0.3943in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/Ratio2_k_3.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{4.3474in}{\begin{center}
+\includegraphics[
+natheight=0.394300in,
+natwidth=4.296400in,
+height=0.4238in,
+width=4.3474in
+]%
+{../../MY TeX Work/Ratio2_k_3.png}%
+\\
+$k=3$ for\ $m=-2,-1,0,1,2$%
+\end{center}}}
+%EndExpansion
+\caption{The Ratio of two Positive Numbers}\label{figureKey5}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+The ratio of the oscillatory part to $\log(1+1/k)$\ in \bigskip$\rho(k)$ has
+the form%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.5798in}{4.0421in}{0in}{\Qcb{$\frac{\rho(k)}%
+%{\log(1+1/k)}-1$ vs s=$k$}}{}{at1.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 5.5798in;  height 4.0421in;  depth 0in;
+%original-width 5.393in;  original-height 3.9003in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../../MY TeX Work/AT1.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.5798in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=4.0421in,
+width=5.5798in
+]%
+{../../MY TeX Work/AT1.png}%
+\\
+$\frac{\rho(k)}{\log(1+1/k)}-1$ vs s=$k$%
+\end{center}}}
+%EndExpansion
+\caption{The ratio of the oscillatory to non-oscilattory  parts}\label{figureKey8}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+Then we have%
+\begin{align}
+\rho(k,N)  &  =\log(k+1)-\log(k)+\nonumber\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{N}}
+%EndExpansion
+A_{n}\left(  \sin(2\pi n\log(k+1))-\sin(2\pi n\log(k))\right)  ,
+\label{2NumbR}\\
+A_{n}  &  =\left(  \pi n\cosh\left(  \frac{n\pi^{2}}{\ln(10)}\right)  \right)
+^{-1}.\nonumber
+\end{align}
+
+
+If we calculate the difference from the NBL ($k=1$), we get%
+\[
+100\%\left(  \frac{0{\small .3092}}{0.3010}-1\right)  =2.75\%.
+\]
+The full solution is $\rho(k,\infty).$ The one-term approximation of this
+solution has only a small deviation from the exact solution
+\begin{align*}
+\rho(k,1)  &  =\log(k^{-1}+1)+\left(  \pi\cosh\left(  \frac{\pi^{2}}{\ln
+(10)}\right)  \right)  ^{-1}\left(  \sin(2\pi\log(k+1))-\sin(2\pi
+\log(k))\right)  ,\\
+\frac{\rho(k,1)}{\rho(k,\infty)}-1  &  =O\left(  10^{-4}\right)  .
+\end{align*}
+
+
+Now we consider the ratio of two random variables $z=\frac{y}{x}$\ selected
+from normal distributions.
+
+\begin{itemize}
+\item \textbf{Normal Distributions} ($0$%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+$\sigma_{x},0<\sigma_{y},\mu_{x}=0,\mu_{y}=0$) with PDF%
+\begin{align*}
+f(z)  &  =%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+xf_{norm}(xz,0,\sigma_{y})f_{norm}(x,0,\sigma_{x})dx\\
+&  =\frac{\sigma_{x}\sigma_{y}}{2\pi\left(  \sigma_{x}^{2}z^{2}+\sigma_{y}%
+^{2}\right)  },\\
+\digamma &  =%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz=\frac{1}{4}.
+\end{align*}
+We have $1/4$ because we consider only the first quadrant ($0<x,0<y$).
+\end{itemize}
+
+Then%
+\begin{align*}
+\rho(k,\sigma_{x},\sigma_{y})  &  =\digamma\left(
+\begin{array}
+[c]{c}%
+\log(1+k)-\log(k)+\\%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+A_{n}\left(  \sin(ns_{1}\right)  -\sin(ns))
+\end{array}
+\right)  ,\\
+A_{n}  &  =\left(  \pi n\cosh\left(  \frac{n\pi^{2}}{\ln(10)}\right)  \right)
+^{-1},\\
+s_{1}  &  =2\pi\log\left(  \frac{\sigma_{x}(k+1)}{\sigma_{y}}\right)
+,s=2\pi\log\left(  \frac{\sigma_{x}k}{\sigma_{y}}\right)  .
+\end{align*}%
+\[
+A_{1}=8.7556\times10^{-3},A_{2}=6.0230\times10^{-5}.
+\]
+From this we obtain a DSLD close to the NBL, multiplied by $\digamma$.
+
+Now we consider the ratio of two random variables $z=\frac{y}{x}$\ selected
+from exponential distributions.
+
+\begin{itemize}
+\item \textbf{Exponential Distribution} ($0$%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+$\lambda_{x},0<\lambda_{y}$)%
+\begin{align*}
+f_{x}(x)  &  =\frac{1}{\lambda_{x}}\exp\left(  -\frac{x}{\lambda_{x}}\right)
+,f_{y}(y)=\frac{1}{\lambda_{y}}\exp\left(  -\frac{y}{\lambda_{y}}\right)  .\\
+f(z)  &  =%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+xf_{y}(xz)f_{x}(x)dx\\
+&  =\frac{\lambda_{x}\lambda_{y}}{\left(  \lambda_{x}z+\lambda_{y}\right)
+^{2}},\\
+\digamma &  =%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz=1.
+\end{align*}
+Then%
+\begin{align*}
+\rho(k,\lambda_{x},\lambda_{y})  &  =\left(
+\begin{array}
+[c]{c}%
+\log(1+k)-\log(k)+\\%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+A_{n}\left(  \sin(ns_{1}\right)  -\sin(ns))
+\end{array}
+\right)  ,\\
+A_{n}  &  =\frac{2\pi}{\ln(10)}\sinh\left(  \frac{n^{2}\pi}{\ln(10)}\right)
+^{-1},\\
+s_{1}  &  =2\pi\log\left(  \frac{\lambda_{x}(k+1)}{\lambda_{y}}\right)
+,s=2\pi\log\left(  \frac{\lambda_{x}k}{\lambda_{y}}\right)  .
+\end{align*}%
+\[
+A_{1}=1.0326\times10^{-3},A_{2}=1.9540\times10^{-7}.
+\]
+From this we obtain a DSLD close to the NBL.
+
+Now we consider the ratio of two random variables $z=\frac{y}{x}$\ selected
+from LogNormal distributions.
+
+\item \textbf{Ratio } of two positive numbers with \textbf{LogNormal
+distributions}%
+\begin{align*}
+z  &  =\frac{y}{x},\\
+f(z)  &  =%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+xf_{y}(xz,\mu_{y},\sigma_{y})f_{x}(x,\mu_{x},\sigma_{x})dx\\
+&  =f(z,\mu,\sigma),\\
+\mu &  =\mu_{x}-\mu_{y},\sigma^{2}=\sigma_{x}^{2}+\sigma_{y}^{2},\\
+\digamma &  =%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz=1.
+\end{align*}
+and the PDF for $z$ has a LogNormal form, see (\ref{LogNorm1}).
+\end{itemize}
+
+\subsection{DSLD for Normal Distribution}%
+
+%TCIMACRO{\TeXButton{NormD}{\label{NormD}}}%
+%BeginExpansion
+\label{NormD}%
+%EndExpansion
+Because the normal distribution is common in many applications, let us
+consider it in more detail.
+\begin{align*}
+f(z,\mu,\sigma)  &  =\frac{1}{\sigma\sqrt{2\pi}}\exp\left(  -\frac{(z-\mu
+)^{2}}{2\sigma^{2}}\right)  ,\\
+F(z,\mu,\sigma)  &  =\frac{1}{2}+\frac{1}{2}\operatorname{erf}\left(
+\frac{z-\mu}{\sigma\sqrt{2}}\right)  ,\\
+\digamma &  =%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz=1-F(0,\mu,\sigma)\\
+&  =\frac{1}{2}+\frac{1}{2}\operatorname{erf}\left(  \frac{\mu}{\sigma\sqrt
+{2}}\right)  .
+\end{align*}
+If $\mu\neq0$, we have $\left(  \xi=\frac{\mu}{\sigma\sqrt{2}}\right)  $
+\begin{align*}
+G(s,\mu,\sigma)  &  =C\left(  \xi\right)  s+Q_{1}\left(  s,\xi\right)  ,\\
+C\left(  \xi\right)   &  =\frac{1}{2}+\frac{1}{2}\operatorname{erf}\left(
+\xi\right)  ,\\
+Q_{1}\left(  s,\xi\right)   &  =Q_{1}\left(  s+1,\xi\right)  ,\\
+s  &  =\log(k)-\log(\sigma\sqrt{2}),s_{1}=\log(k+1)-\log(\sigma\sqrt{2}),\\
+\rho(k,\mu,\sigma)  &  =A\left(  \xi\right)  \left(  \log(k+1)-\log(k)\right)
++Q_{1}\left(  s_{1},\xi\right)  -Q_{1}\left(  s,\xi\right)  .
+\end{align*}
+The function $\rho(k,\mu,\sigma)$ is invariant under the transformations
+$\mu\rightarrow10^{n}\mu,\sigma\rightarrow10^{n}\sigma$ with integer $n$.
+
+When $\mu=0$ see \ref{Nomal0}. In the general case, we will use the convenient
+form (\ref{EM5})%
+
+\begin{equation}
+\rho(k)=%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left(  \left\lfloor \log\left(  \frac{z}{k}\right)  \right\rfloor
+-\left\lfloor \log\left(  \frac{z}{k+1}\right)  \right\rfloor \right)  dz.
+\label{Nomal1}%
+\end{equation}
+
+
+In some cases we can find asymptomatic formulas.
+
+\begin{itemize}
+\item If $0<\mu,\mu=O(1),\frac{\sigma}{\mu}$\bigskip$\ll1,\digamma=1$
+
+It is convenient to make the change%
+\begin{align*}
+z  &  =\mu+\sigma\sqrt{2}t,\\
+\rho(k)  &  =\frac{1}{\sqrt{\pi}}%
+%TCIMACRO{\dint \limits_{t=-\frac{\mu}{\sigma\sqrt{2}}}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=-\frac{\mu}{\sigma\sqrt{2}}}^{\infty}}
+%EndExpansion
+\exp\left(  -t^{2}\right)  \left(  \left\lfloor \log\left(  \frac{\mu
++\sigma\sqrt{2}t}{k}\right)  \right\rfloor -\left\lfloor \log\left(  \frac
+{\mu+\sigma\sqrt{2}t}{k+1}\right)  \right\rfloor \right)  dt.
+\end{align*}
+
+\end{itemize}
+
+As $\frac{\sigma}{\mu}\rightarrow0$, we have%
+\begin{equation}
+\rho(k)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{2} & \log\left(  \frac{\mu}{k}\right)  -\left\lfloor \log\left(
+\frac{\mu}{k}\right)  \right\rfloor =0,\\
+\frac{1}{2} & \log\left(  \frac{\mu}{k+1}\right)  -\left\lfloor \log\left(
+\frac{\mu}{k+1}\right)  \right\rfloor =0\\
+1 & \left\lfloor \log\left(  \frac{\mu}{k}\right)  \right\rfloor -\left\lfloor
+\log\left(  \frac{\mu}{k+1}\right)  \right\rfloor >0\\
+0 & \text{other}.
+\end{array}
+\right.  \label{NormD1}%
+\end{equation}%
+\begin{align*}
+\Omega(s)  &  =\left\{
+\begin{array}
+[c]{cc}%
+-\frac{1}{2}, & s=0,\\
+\frac{1}{2}, & s=1,\\
+1, & 1<s,\\
+0, & \text{other}.
+\end{array}
+\right.  ,\\
+\Omega(1)-\Omega(0)  &  =1.
+\end{align*}%
+\begin{align*}
+\rho(k)  &  =\Omega(s_{1})-\Omega(s),\\
+s  &  =\log\left(  \frac{k}{\mu}\right)  -\left\lfloor \log\left(  \frac
+{k}{\mu}\right)  \right\rfloor ,\\
+s_{1}  &  =\log\left(  \frac{k+1}{\mu}\right)  -\left\lfloor \log\left(
+\frac{k}{\mu}\right)  \right\rfloor .
+\end{align*}
+\newline
+
+\begin{itemize}
+\item In the general case, the formulas for $A_{n}$ and $B_{n}$ too bulky and
+it is better to use a numerical method for calculations.
+\end{itemize}
+
+Let find the distribution of the leading digits for the deviation from $\mu$,
+$z=x-\mu$%
+\[
+\digamma=\frac{1}{2}+\frac{1}{2}\operatorname{erf}\left(  \frac{\mu\sqrt{2}%
+}{2\sigma}\right)  .
+\]%
+\begin{align*}
+A_{n}-\imath B_{n}  &  =\frac{1}{n\pi^{\frac{3}{2}}}%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+x^{iY}\exp\left(  -(x-\xi)^{2}\right)  dx,\\
+Y  &  =\frac{2n\pi}{\ln(10)}.
+\end{align*}
+As an example, we consider the set of parameters as in
+%TCIMACRO{\TeXButton{cite1}{\cite{formann0}} }%
+%BeginExpansion
+\cite{formann0}
+%EndExpansion
+$\mu=1.1,\sigma=0.25$ then%
+\[
+\digamma=\frac{1}{2}+\frac{1}{2}\operatorname{erf}\left(  3.1113\right)
+=.99999.
+\]%
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(n=\infty)}$ & ${\small .6550}$ & ${\small .0010}$ &
+${\small .0200}$ & ${\small .0050}$ & ${\small .01500}$ & ${\small .0320}$ &
+${\small .0600}$ & ${\small .0970}$ & ${\small .1330}$\\\hline
+${\small \rho(n=4)}$ & {\small .}$6540$ & ${\small .0021}$ & ${\small .0240}$
+& ${\small .0046}$ & ${\small .01372}$ & ${\small .0347}$ & ${\small .0583}$ &
+${\small .0952}$ & ${\small .1348}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 8}\label{TableKey8}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\bigskip
+
+The structure of the DSLD depends on the parameters of the underlying
+distribution, $\mu=1.1$ and $\sigma=0.25$ in this case, which is equivalent to
+$\mu=11$ and $\sigma=2.5$, with sample numbers mainly lying in the interval
+$\mu\pm3\sigma$ $[3.5,18.5]$ For $\mu=100,\sigma=15$ (which is equivalent to
+$\mu=10$, $\sigma=1.5,[5.5,14.5]$), we have
+
+\bigskip%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(n=\infty)}$ & ${\small .5000}$ & ${\small .0000}$ &
+${\small .0000}$ & ${\small .0000}$ & ${\small .00380}$ & ${\small .01900}$ &
+${\small .0680}$ & ${\small .1620}$ & ${\small .2480}$\\\hline
+${\small \rho(n=6)}$ & ${\small .4980}$ & ${\small -0.0009}$ & ${\small .0007}%
+$ & ${\small .00183}$ & ${\small .00082}$ & ${\small .02162}$ &
+${\small .0663}$ & ${\small .1616}$ & ${\small .2497}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 9}\label{TableKey9}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\bigskip
+
+Although there is a logarithmic term in the representation of the DSLD, the
+distribution is not monotonous or tending to the NBL.
+
+From (\ref{NormD1}) we can see that $\rho(k)$ is a $1$-periodic function of
+$\log(k)$ (for $k$ positive) and $\log(\sigma)$%
+\begin{align}
+\rho(k)  &  =\frac{1}{2}\left(  \log(k+1)-\log(k)\right) \label{NormD2}\\
+&  +Q_{1}(\log(k+1)-\lfloor\log(k)\rfloor+\lfloor\log(\sigma)\rfloor
+-\log(\sigma))\nonumber\\
+&  -Q_{1}(\log(k)-\lfloor\log(k)\rfloor+\lfloor\log(\sigma)\rfloor-\log
+(\sigma)),\nonumber\\
+k  &  =1,2,\ldots.\nonumber
+\end{align}
+%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(\sigma=1)}$ & ${\small .17987}$ & ${\small .06434}$ &
+${\small .04330}$ & ${\small .04050}$ & ${\small .03860}$ & ${\small .03668}$
+& ${\small .03446}$ & ${\small .03227}$ & ${\small .02980}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 10}\label{TableKey10}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\bigskip
+
+\noindent and%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small \sigma}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$
+& ${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k=1)}$ & ${\small .17987}$ & ${\small .17200}$ &
+${\small .13213}$ & ${\small .11000}$ & ${\small .10770}$ & ${\small .11911}$
+& ${\small .13640}$ & ${\small .15400}$ & ${\small .16874}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 11}\label{TableKey11}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+\bigskip%
+\begin{align*}
+G(s)  &  =\frac{s}{2}+0.026418\sin(2\pi s)-0.000938\cos(2\pi s)\\
+&  -0.000536\sin(4\pi s)-0.001459\cos(4\pi s).
+\end{align*}
+%
+
+\begin{align*}
+\rho(k)  &  \approx G(\log(k+1)-\lfloor\log(k)\rfloor+\lfloor\log
+(\sigma)\rfloor-\log(\sigma))\\
+&  -G(\log(k)-\lfloor\log(k)\rfloor+\lfloor\log(\sigma)\rfloor-\log
+(\sigma)),\\
+k  &  =1,2,\ldots.
+\end{align*}
+
+
+\bigskip Here are some illustrations of the ratio $\rho(k,\sigma,\mu
+)/\log(1+1/k)$%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$\rho(k=1,\sigma
+%,\mu=0)/\log(2)-1$ vs $\ s=\sigma.$}}{}{at1.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";  filename '../../MY TeX Work/AT1.png';file-properties "NPEU";}%
+%} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/AT1.png}%
+\\
+$\rho(k=1,\sigma,\mu=0)/\log(2)-1$ vs $\ s=\sigma.$%
+\end{center}}}
+%EndExpansion
+\caption{Normal Distribution, $k=1$ and $\mu=0$}\label{figureKey9}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip
+
+\noindent and $(\sigma=1,\mu=1)$ \bigskip%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$\rho(k,\sigma
+%=1,\mu=1)/(\digamma\log(1+1/k))-1$ vs $\ k$}}{}{normm1s1.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/NormM1S1.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/NormM1S1.png}%
+\\
+$\rho(k,\sigma=1,\mu=1)/(\digamma\log(1+1/k))-1$ vs $\ k$%
+\end{center}}}
+%EndExpansion
+\caption{Normal Distribution, $\sigma=1$ and $\mu=0$}\label{figureKey10}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\noindent and $(\sigma=0.1,\mu=1)$
+
+\bigskip%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$\rho(k,\sigma
+%=0.1,\mu=1)/(\digamma\log(1+1/k))-1$ vs $\ k$}}{}{normm1s01.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/NormM1S01.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/NormM1S01.png}%
+\\
+$\rho(k,\sigma=0.1,\mu=1)/(\digamma\log(1+1/k))-1$ vs $\ k$%
+\end{center}}}
+%EndExpansion
+\caption{Normal Distribution, $\sigma=0.1$ and $\mu=1$}\label{figureKey11}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip
+
+\noindent in this case, the contribution of the oscillating term is up to $8$
+times greater than that of the logarithmic.%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{$\rho(k,\sigma
+%=1,\mu=-1)/(\digamma\log(1+1/k))-1$ vs $\ k$}}{}{normm-1s1.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../../MY TeX Work/NormM-1S1.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/NormM-1S1.png}%
+\\
+$\rho(k,\sigma=1,\mu=-1)/(\digamma\log(1+1/k))-1$ vs $\ k$%
+\end{center}}}
+%EndExpansion
+\caption{Normal Distribution, $\sigma=1$ and $\mu=-1$}\label{figureKey12}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip
+
+An easy kind of approximation has the form%
+\begin{align*}
+\rho(k,\sigma)  &  \approx\frac{1}{2}\log\left(  \frac{k+1}{k}\right) \\
+&  +\frac{1}{12\pi}\left(  \sin\left(  2\pi(\log(k+1)-\log(\sigma))\right)
+-\sin\left(  2\pi(\log(k)-\log(\sigma))\right)  \right)  ,\\
+k  &  =1,2,\ldots.
+\end{align*}
+
+
+For negative numbers $x$, we have%
+\[
+10^{m}(k-1)\leq x\leq10^{m}k
+\]%
+\begin{align}
+\rho(k)  &  =\frac{1}{2}\left(  \log(\left\vert k\right\vert +1)-\log
+((\left\vert k\right\vert )\right)  +Q_{1}(\log(\left\vert k\right\vert
++1)-\lfloor\log((\left\vert k\right\vert )\rfloor+\lfloor\log(\sigma
+)\rfloor-\log(\sigma))\\
+&  -Q_{1}(\log((\left\vert k\right\vert )-\lfloor\log((\left\vert k\right\vert
+)\rfloor+\lfloor\log(\sigma)\rfloor-\log(\sigma)),\nonumber\\
+k  &  =-1,-2,\ldots.\nonumber
+\end{align}
+
+
+It is important to emphasize that in spite of the possible argument about its
+insignificant value, the role of the functions $Q_{1}$ can be substantial. So
+if we look at the dependence on $\sigma$, the difference can reach more than
+$50\%$.%
+\begin{align*}
+\rho(k  &  =1,\sigma=1.327,\mu=0)=.19287,\\
+\rho(k  &  =1,\sigma=4.613,\mu=0)=.10657,\\
+\frac{\rho(1,1.327)+\rho(1,4.613)}{2}  &  =.14972,\\
+100\%\frac{2(\rho(1,1.327)-\rho(1,4.613))}{\rho(1,1.327)+\rho(1,4.613)}  &
+=57.6\%.
+\end{align*}
+When $\mu\neq0$, we have%
+\begin{align*}
+G(s,\mu,\sigma)  &  =A\left(  \frac{\mu}{\sigma}\right)  s+Q_{1}\left(
+s,\frac{\mu}{\sigma}\right)  ,\\
+A\left(  \frac{\mu}{\sigma}\right)   &  =\frac{1}{2}+\frac{1}{2}%
+\operatorname{erf}\left(  \frac{\mu\sqrt{2}}{2\sigma}\right)  ,\\
+Q_{1}\left(  s,\frac{\mu}{\sigma}\right)   &  =Q_{1}\left(  s+1,\frac{\mu
+}{\sigma}\right)  ,\\
+s  &  =\log(k)-\log(\sigma),s_{1}=\log(k+1)-\log(\sigma),\\
+\rho(k,\sigma,\mu)  &  =A\left(  \frac{\mu}{\sigma}\right)  \left(
+\log(k+1)-\log(k)\right)  +Q_{1}\left(  s_{1},\frac{\mu}{\sigma}\right)
+-Q_{1}\left(  s,\frac{\mu}{\sigma}\right)  .
+\end{align*}
+
+
+\subsection{Truncated Normal Distribution}
+
+The truncated normal distribution is often used in different application.
+\begin{align*}
+f(z,\sigma,\mu,a,b)  &  =\left\{
+\begin{array}
+[c]{cc}%
+C\exp\left(  -\frac{(z-\mu)^{2}}{2\sigma^{2}}\right)  , & a\leq z\leq b\\
+0, & z<a,b<z
+\end{array}
+\right.  ,\\
+C  &  =\frac{1}{\sigma}\sqrt{\frac{2}{\pi}}\left(  \operatorname{erf}\left(
+\frac{b-\mu}{\sigma\sqrt{2}}\right)  -\operatorname{erf}\left(  \frac{a-\mu
+}{\sigma\sqrt{2}}\right)  \right)  ^{-1},-\infty\leq a<b\leq\infty.
+\end{align*}
+And%
+\begin{align*}
+CDF  &  =C\left(  \operatorname{erf}\left(  \frac{z-\mu}{\sigma\sqrt{2}%
+}\right)  -\operatorname{erf}\left(  \frac{a-\mu}{\sigma\sqrt{2}}\right)
+\right) \\
+\digamma &  =C\left(  \operatorname{erf}\left(  \frac{\gamma_{+}-\mu}%
+{\sigma\sqrt{2}}\right)  -\operatorname{erf}\left(  \frac{\gamma_{-}-\mu
+}{\sigma\sqrt{2}}\right)  \right)  ,\\
+\gamma_{+}  &  =\max(b,0),\gamma_{-}=\max(a,0).
+\end{align*}
+An expression for $\rho(z,\sigma,\mu,a,b)$ can be found from (\ref{EM0a}).
+
+\section{Approximation}%
+
+%TCIMACRO{\TeXButton{\label{Approximation}}{\label{Approximation}}}%
+%BeginExpansion
+\label{Approximation}%
+%EndExpansion
+
+
+\bigskip Other presentation os $s$ and $s_{1}$%
+\[
+s=\log(k)-\left\lfloor \log\left(  k\right)  \right\rfloor ,s_{1}%
+=\log(k+1)-\left\lfloor \log\left(  k\right)  \right\rfloor ,
+\]%
+\[
+s=\log(k)+\left\lfloor -\log\left(  k\right)  \right\rfloor ,s_{1}%
+=\log(k+1)+\left\lfloor -\log\left(  k+1\right)  \right\rfloor .
+\]
+Because%
+\[
+\left\lfloor -x\right\rfloor =-\left\lfloor x\right\rfloor +\left\{
+\begin{array}
+[c]{cc}%
+0, & x\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+-1, & x\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,
+\end{array}
+\right.
+\]
+Then%
+\[
+\left\lfloor -\log\left(  k+1\right)  \right\rfloor =-\left\lfloor \log\left(
+k\right)  \right\rfloor -1,
+\]
+and%
+
+\[
+\left\lfloor -\log\left(  k+1\right)  \right\rfloor =\left\lfloor -\log\left(
+k\right)  \right\rfloor .
+\]
+
+
+\begin{itemize}
+\item Discrete $\Omega$%
+\begin{align*}
+-\Omega(\log(k),a)  &  =\left\lfloor \log\left(  \frac{a}{k}\right)
+\right\rfloor -\log\left(  \frac{a}{k}\right)  +\log\left(  a\right)
+-\log\left(  k\right)  ,\\
+&  =-\left(  \log\left(  \frac{a}{k}\right)  -\left\lfloor \log\left(
+\frac{a}{k}\right)  \right\rfloor \right)  +\log\left(  a\right)  -\log\left(
+k\right)
+\end{align*}%
+\[
+\Omega(s,a)=s+\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\left(  \log\left(  a_{i}\right)  -s-\left\lfloor \log\left(  a_{i}\right)
+-s\right\rfloor \right)  -\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\log\left(  a_{i}\right)  .
+\]%
+\begin{align*}
+\{x\}  &  =x-\left\lfloor x\right\rfloor \\
+&  =\left\{
+\begin{array}
+[c]{cc}%
+x, & x\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\frac{1}{\pi j}\sin(2\pi jx), & x\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{array}
+\right.  .
+\end{align*}
+We set the non-essential additive constant to zero.%
+\[
+\Omega(s,a)=s+\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\{\log\left(  a_{i}\right)  -s\}+const.
+\]%
+\begin{align*}
+\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\{\log\left(  a_{i}\right)  -s\}  &  =%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\Lambda_{j}\frac{\sin(2\pi js+\varphi_{j})}{\pi j},\\
+\Lambda_{j}\exp(\imath\varphi_{j})  &  =\frac{1}{\pi jN}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\exp(-2\pi j\imath\left\{  \log\left(  a_{i}\right)  \right\}  ).
+\end{align*}
+
+
+\item Continues $\Omega$%
+\begin{align*}
+-\Omega(\log(k),a)  &  =%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left\lfloor \log\left(  \frac{z}{k}\right)  \right\rfloor dz\\
+&  =%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left(  \left\lfloor \log\left(  \frac{z}{k}\right)  \right\rfloor
+-\log\left(  \frac{z}{k}\right)  +\log\left(  z\right)  -\log\left(  k\right)
+\right)  dz,\\
+&  =-%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left\{  \log\left(  \frac{z}{k}\right)  \right\}  dz-\log\left(
+k\right)
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz.
+\end{align*}%
+\[
+\Omega(s)=s%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz.+%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left(  \log\left(  z\right)  -s-\left\lfloor \log\left(  z\right)
+-s\right\rfloor \right)  dz+const.
+\]
+We set the non-essential additive constant to zero.%
+\[
+\Omega(s)=s%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz.+%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left\{  \log\left(  z\right)  -s\right\}  dz.
+\]
+
+\end{itemize}
+
+%
+
+\begin{align*}%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\left\{  \log\left(  z\right)  -s\right\}  dz  &  =%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\Lambda_{j}\sin(2\pi js+\varphi_{j}),\\
+\Lambda_{j}\exp(\imath\varphi_{j})  &  =\frac{1}{\pi j}%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)\exp(-2\pi j\imath\left\{  \log\left(  z\right)  \right\}  )dz\\
+&  =\frac{1}{\pi j}%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)z^{\left(  -\frac{2\pi j\imath}{\log\left(  10\right)  }\right)
+}dz,j=1,2,\ldots.
+\end{align*}
+
+
+\begin{itemize}
+\item Connection with van der Corput's methods.
+
+\item From (\ref{Ratio2})
+\end{itemize}
+
+%
+
+\[
+\Lambda_{n}\exp(\varphi_{n}\imath)=\frac{1}{2\pi n}\left(
+%TCIMACRO{\dint \limits_{z=0}^{\ 1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\ 1}}
+%EndExpansion
+z^{(-Y\imath)}dz+%
+%TCIMACRO{\dint \limits_{z=1}^{\ \infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=1}^{\ \infty}}
+%EndExpansion
+z^{(-2-Y\imath)}dz\right)  ,Y=\frac{2\pi n}{\ln(10)},n=1,2,\ldots
+\]%
+\[
+\Lambda_{n}=\frac{1}{\pi n}\frac{1}{(1+Y^{2})},\varphi_{n}=0.
+\]%
+\begin{align}
+&  \frac{10^{-L}}{18}-10^{L}\frac{5}{9}\left(  \frac{1}{k+1}\frac{1}{k}\right)
+\label{Ratio3}\\
+&  \approx\log\left(  1+\frac{1}{k}\right)  +0.0377\times\left(  \sin\left(
+2\pi\log(1+k)\right)  -\sin\left(  2\pi\log(k)\right)  \right)  ,\nonumber\\
+L  &  =\left\lfloor \log(k)\right\rfloor .\nonumber
+\end{align}%
+\begin{align*}
+k  &  =1,0.3333\approx0.3368,\\
+k  &  =15,0.02867\approx0.03047.
+\end{align*}
+
+
+\begin{itemize}
+\item From (\ref{Prod2})
+\end{itemize}
+
+%
+
+\[
+\Lambda_{n}\exp(\varphi_{n}\imath)=\frac{1}{\pi n}%
+%TCIMACRO{\dint \limits_{z=0}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{1}}
+%EndExpansion
+-z^{(-Y\imath)}\ln(z)dz,Y=\frac{2\pi n}{\ln(10)},n=1,2,\ldots
+\]%
+\[
+\Lambda_{n}=\frac{1}{\pi n}\frac{1}{(1+Y^{2})},\varphi_{n}=\arctan\left(
+\frac{2Y}{1-Y^{2}}\right)  .
+\]%
+\begin{align}
+&  \frac{10^{-L}}{9}\left(  k\ln(k)-(k+1)\ln(k+1)+1+\frac{(9L+10)}{9}%
+\ln(10)\right) \label{Prod3}\\
+&  \approx\log\left(  1+\frac{1}{k}\right)  +0.0377\times\left(  \sin\left(
+2\pi\log(1+k)+2.4391\right)  -\sin\left(  2\pi\log(k)+2.4391\right)  \right)
+.\nonumber
+\end{align}%
+\begin{align*}
+k  &  =1,0.24135\approx0.24171,\\
+k  &  =15,0.02353\approx0.0222.
+\end{align*}
+
+
+\begin{itemize}
+\item Estimation coefficients in $n!$
+
+\item Approximation of function $P(k,x,n)$
+\begin{align}
+P(k,x,n)  &  =\left\{
+\begin{array}
+[c]{cc}%
+s-s_{1}, & s\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,s_{1}\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+s-s_{1}+\frac{1}{2}-%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+\frac{\sin(2\pi js_{1})}{\pi j}, & s\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,s_{1}\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+s-s_{1}-\frac{1}{2}+%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+\frac{\sin(2\pi js)}{\pi j}, & s\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,s_{1}\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+s-s_{1}+%
+%TCIMACRO{\dsum \limits_{j=1}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{n}}
+%EndExpansion
+\frac{\sin(2\pi js)-\sin(2\pi js_{1})}{\pi j}, & s\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,s_{1}\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{array}
+\right\} \label{RHOa}\\
+s  &  =\log\left(  \frac{x}{k}\right)  ,s_{1}=\log\left(  \frac{x}%
+{k+1}\right)  .\nonumber
+\end{align}
+
+
+\item
+\[
+z=y+x,
+\]
+where $y\approx$ $N(\mu,\sigma)$ and $x\approx$ $U(0,\varepsilon)$ then%
+\[
+f(z,\mu,\sigma,\varepsilon)=\frac{1}{2\varepsilon}\left(  \operatorname{erf}%
+\left(  \frac{z-\mu}{\sigma\sqrt{2}}\right)  -\operatorname{erf}\left(
+\frac{z-\mu-\varepsilon}{\sigma\sqrt{2}}\right)  \right)  .
+\]
+
+\end{itemize}
+
+The function $\rho(k)$ weakly depends on relatively small positive changes in
+the values of the set. This robustness makes it possible to impose additional
+small perturbations and to construct an approximate formula for DSLD.
+
+\begin{itemize}
+\item Vector of coefficiens $A_{i}$ and $B_{i}$ is $w$ witn $2n+1(0\leq n)$
+components \ \
+\[
+w=\left[  A_{0},A_{1},B_{1},A_{2},B_{2},\ldots\right]  ^{\top}.
+\]
+and $G$ with $m(0\leq m)$ is vector of experemental values of some $\rho(k)$%
+\[
+G=\left[  G_{1},G_{2},G_{3},G_{4},G_{5},\ldots\right]  ^{\top}.
+\]%
+\begin{align*}
+M_{i,1}  &  =\log\left(  1+\frac{1}{k}\right)  ,1\leq i\leq m,\\
+M_{i,j}  &  =\sin\left(  2\pi j\log(1+k)\right)  -\sin\left(  2\pi
+j\log(k)\right)  ,j\text{ even,}2\leq j,\\
+M_{i,j}  &  =\cos\left(  2\pi j\log(1+k)\right)  -\cos\left(  2\pi
+j\log(k)\right)  ,j\text{ odd,}3\leq j.
+\end{align*}
+Then estimation of vector $w$\ \ is%
+\[
+w=\left(  M^{\top}.M\right)  ^{-1}.M^{\top}.G.
+\]
+
+\end{itemize}
+
+\subsection{Discrete Distributions}%
+
+\begin{align*}
+\rho(k)  &  =\log\left(  1+\frac{1}{k}\right)  +%
+%TCIMACRO{\dsum \limits_{j=1}^{m}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{m}}
+%EndExpansion
+U(k,a,j),m\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast},\\
+U(k,a,j)  &  =-\frac{1}{\pi jN}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\left(  \sin\left(  2\pi j\log\left(  \frac{a_{i}}{1+k}\right)  \right)
+-\sin\left(  2\pi j\log\left(  \frac{a_{i}}{k}\right)  \right)  \right)  .
+\end{align*}%
+\begin{align*}
+s  &  =2\pi\log(k),s_{1}=2\pi\log(1+k),\\
+S_{j}(N)  &  =\frac{1}{\pi jN}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\left(  a_{i}\right)  ^{-\frac{2\pi j}{\ln(10)}\imath}\\
+&  =\frac{1}{\pi jN}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\exp\left(  -2\pi j\imath\log(a_{i}\right)  )\\
+&  =\frac{1}{\pi jN}%
+%TCIMACRO{\dsum \limits_{i=1}^{N}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{N}}
+%EndExpansion
+\exp\left(  -2\pi j\imath\left\{  \log\left(  a_{i}\right)  \right\}  \right)
+.
+\end{align*}%
+\[
+S_{j}(N)=R\exp(\imath\varphi),
+\]
+Different presentations of $U(k,a,j)$
+\begin{align*}
+U(k,a,j)  &  =\operatorname{Re}(S_{j}(N))\left(  \sin(js_{1})-\sin(js)\right)
+\\
+&  +\operatorname{Im}(S_{j}(N))\left(  \cos(js_{1})-\cos(js)\right)  .
+\end{align*}%
+\[
+U(k,a,j)=R\left(  \sin(js_{1}+\varphi)-\sin(js+\varphi)\right)  .
+\]%
+\begin{align*}
+&
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\left(  \sin(A_{i}-s)-\sin(A_{i}-s_{1})\right) \\
+&  =%
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\left(  \cos(A_{i})(\sin(s_{1})-\sin(s))-\sin(A_{i})(\cos(s_{1})-\cos
+(s))\right)
+\end{align*}%
+\begin{align*}
+\left(
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\exp(-\imath A_{i})\right)   &  =R\exp(\imath\varphi),\\%
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\cos(A_{i})  &  =\operatorname{Re}\left(
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\exp(-\imath A_{i})\right)  ,\\
+-%
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\sin(A_{i})  &  =\operatorname{Im}\left(
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+\exp(-\imath A_{i})\right)  .
+\end{align*}
+%
+
+\[
+U(k,a,j)=\frac{R}{\pi jN}\left(  \sin\left(  2\pi j\log\left(  1+k\right)
++\varphi\right)  -\sin\left(  2\pi j\log\left(  k\right)  +\varphi\right)
+\right)  .
+\]
+
+
+\subsection{The Fast Fourier Transform.}%
+
+\begin{align*}%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+f(z)dz  &  =\ln(10)%
+%TCIMACRO{\dint \limits_{t=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=-\infty}^{\infty}}
+%EndExpansion
+g(t)dt,\\
+\frac{1}{\pi n}%
+%TCIMACRO{\dint \limits_{z=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=0}^{\infty}}
+%EndExpansion
+\exp(-2\pi n\log(z)\imath)f(z)dz  &  =\frac{1}{\pi n}%
+%TCIMACRO{\dint \limits_{t=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=-\infty}^{\infty}}
+%EndExpansion
+\exp(-2\pi nt\imath)g(t)dt,\\
+g(t)  &  =\ln(10)10^{t}f(10^{t}).
+\end{align*}
+Forward Discrete Fourier Transform (DFT):%
+\[
+X_{n}=%
+%TCIMACRO{\dsum \limits_{j=0}^{N-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=0}^{N-1}}
+%EndExpansion
+\exp\left(  -2\pi n\frac{j}{N}\imath\right)  x_{j}.
+\]
+Inverse Discrete Fourier Transform (IDFT):%
+\[
+x_{n}=\frac{1}{N}%
+%TCIMACRO{\dsum \limits_{j=0}^{N-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=0}^{N-1}}
+%EndExpansion
+\exp\left(  2\pi n\frac{j}{N}\imath\right)  X_{j}.
+\]
+
+
+\section{Discussion}%
+
+%TCIMACRO{\TeXButton{]label{Discussion}}{\label{Discussion}}}%
+%BeginExpansion
+\label{Discussion}%
+%EndExpansion
+
+
+\ \ \ \ \ This article develops an approach to the manifestation of a certain
+type of DSLD. We have shown that the DSLD does not have an arbitrary form;
+rather, it takes one of three forms. In some cases the DSLD can be expressed
+in closed form or approximated with a high degree of accuracy. We propose an
+integral representation of the DSLD convenient for analytical and numerical analysis.
+
+The form of an DSLD depends not only on the type of underlying probability
+distribution, but also on the parameters of this distribution. So when we
+change the parameters, the form of the DSLD changes.
+
+We stressed at the outset of our discussion the universality of the NBL, that
+the introduction of this distribution attracted the attention of researchers
+to this type of problem.
+
+As we can see in Sections
+%TCIMACRO{\TeXButton{\ref{P2NfUD} and \ref{Pro3}}{\ref{P2NfUD} and \ref{Pro3}}
+%}%
+%BeginExpansion
+\ref{P2NfUD} and \ref{Pro3}
+%EndExpansion
+the values for the frequency distributions are close to the NBL, but as seen
+from the explicit formulas, definitely not the NBL.
+
+The literature on NBL has adopted a very strong and, at the same time, rather
+restrictive principle, namely, to consider as insignificant deviations that
+are not described in the law. This principle, strictly followed by many
+researchers, has led to the impression of the universality of this law, but
+there are other opinions
+%TCIMACRO{\TeXButton{CITE}{\cite{arnold0},
+%\cite{arnold1},
+%\cite{bergerhill}}}%
+%BeginExpansion
+\cite{arnold0},
+\cite{arnold1},
+\cite{bergerhill}%
+%EndExpansion
+. The NBL\ has an empirical nature, and in many cases has no procedure for an
+estimation of the error measurements of experimental data.
+
+Many researchers have drawn conclusions on distributions based on the analysis
+of a relatively small number of samples, without the evaluation of
+approximation errors. It should also be noted here that DSLD\textbf{\ }%
+necessarily depends on properties of both the underlying distribution and the
+area interval.
+
+These two factors constitute an essential and intrinsic part of the structure,
+and neither can be neglected when constructing an DSLD. So they are, in this
+sense, inseparable, and must always appear together. The contributions of the
+log term and the oscillating term depend on the underlying probability
+distribution. In some cases, the contribution of the oscillating term may be
+relatively small, or it can be overwhelming. In many cases, the question
+arises, what is the measure of the accuracy of the approximations. Sometimes
+it is rather arbitrary, and may lead to the `universality' of the NBL. As we
+have seen from the analysis of the normal distribution (with $0<\mu$), the
+presence of a log term does not lead to a distribution resembling the NBL.
+
+We will consider two simple distributions to illustrate the variation of the
+DSLD depending on the parameters. The behavior of the DSLD is a function of
+the properties of the underlying distribution and the values of some parameters.
+
+\begin{enumerate}
+\item If we are risen endless area for sampling, we have, in general, a
+solution as the sum of the difference of the logarithms (NBL's style, perhaps
+with an extra multiplicative factor) and a difference of periodic functions
+(\ref{S2},\ref{S2a}). Moreover, the presence of periodic functions is
+important because they make up $30\%-40\%$ of the value of the DSLD. The
+natural emergence of periodic functions is defined by a transformation group
+and infinite boundaries.
+
+\item The presence of finite boundaries leads mainly to distributions of the
+third type (\ref{S3})%
+\begin{equation}
+\rho(k)=\Omega(\log(k+1)-\lfloor\log(k)\rfloor)-\Omega(\log(k)-\lfloor
+\log(k)\rfloor).
+\end{equation}
+As shown above in the case of the production of $n$ numbers obeying a UD, with
+an increasing number of factors, the main contribution gives the members in
+the inner region and the edge interval effectively does not play a significant
+role. But even small boundary effects eliminate the presence of a periodic
+function. These types of underlying distributions are perhaps the best
+candidates for the NBL.
+\end{enumerate}
+
+Knowing the possible structure of the function $\rho(k)$, we can offer a
+procedure to make a Monte Carlo approximation with experimental data. Because
+with $1\ll\log(k))$\ we have from (\ref{AsymptK})%
+\[
+\rho(k)=\frac{1}{\ln(10)10^{s}}\left(  A+\frac{dQ_{1}(s)}{ds}\right)
++o\left(  10^{-s}\right)  ,s=\log(k).
+\]
+\ \ For example, for (\ref{S2},\ref{S2a}), we can get from $1\ll\log(k)$ (in
+many cases $3\leq\log(k)$) after statistical experimental density function
+$\rho(1\ll\log(k))=\eta(s)),s=\log(k).$
+
+Then make the approximation
+\begin{align*}
+10^{s}\ln(10)f(s)  &  \approx a_{0}+a_{1}\sin(2\pi s)+b_{1}\cos(2\pi
+s)+\ldots,S\leq s\leq S+1.\\
+G(s)  &  =%
+%TCIMACRO{\dint \limits_{\tau=0}^{s}}%
+%BeginExpansion
+{\displaystyle\int\limits_{\tau=0}^{s}}
+%EndExpansion
+10^{\tau}\ln(10)\eta(\tau)d\tau.
+\end{align*}
+So%
+\[
+G(s)=const+a_{0}s-\frac{a_{1}}{2\pi}\cos(2\pi s)+\frac{b_{1}}{2\pi}\sin(2\pi
+s)+\ldots
+\]
+and%
+\begin{align*}
+\rho(k)  &  \approx G(s_{1})-G(s),k\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast},\\
+s_{1}  &  =\log(k+1)-\lfloor\log(k)\rfloor.s=\log(k)-\lfloor\log(k)\rfloor.
+\end{align*}
+In many cases, taking $S=4$ gives pretty good results.
+
+\section{Conclusions}
+
+The main results of this paper are as follows.
+
+\begin{enumerate}
+\item A general form for the DSLD is presented (\ref{S3}).
+
+\item It is shown that in a number of cases this general solution takes the
+simpler forms (\ref{S1}) and (\ref{S2}).
+
+\item It is proved that instead of the NBL it is natural to look for, in
+permissible cases, a DSLD of the form (\ref{S2}).
+
+\item The relation between the DSLD and the density of the underlying
+distribution is presented in the form of an integral relation.
+
+\item The function $P(k,x)$ (\ref{EMF02}) is introduced, which is convenient
+for isolating the interval of the leading digits.
+
+\item There has been presented some exact solutions and their relation to the
+general form of the DSLD.
+
+\item In a number of cases, a Fourier representation is found that can be used
+to find approximate solutions by cutting short its infinite series. In many
+practical cases, only the first few terms are sufficient. These approximate
+analytical formulas provide a high degree of accuracy.
+
+\item It is shown that knowing the results of a numerical experiment for
+sufficiently large leading numbers, it is possible to recover the solution for
+their entire range.
+
+\item In many cases, the function $\Omega(s)$ has a quasipolynomial form (with
+constants $\alpha_{i}$\ and $\beta_{ij}$):
+\end{enumerate}
+
+%
+
+\[
+\Omega(s)=%
+%TCIMACRO{\dsum \limits_{i}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i}}
+%EndExpansion
+10^{\alpha_{i}s}%
+%TCIMACRO{\dsum \limits_{j}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j}}
+%EndExpansion
+\beta_{ij}s^{j}%
+\]
+We have found the forms of the DSLD for a set of underlying distributions and
+presented closed forms for the DSLD\textbf{\ } for a few of them. We have
+introduced an integral representation of the DSLD\textbf{\ }as a function of
+the underlying distribution.
+
+From these results, we conclude that the logarithmic terms are native terms
+with sums with other oscillating terms. In many cases, their contribution is
+essential. Regarding the NBL, it is in many cases a better or worse
+approximation of more complicated forms of distributions, and can be exact
+only in a few rare cases, which neglect the oscillating terms.
+
+We found some solutions in the form of an infinite series which with high
+accuracy can be substituted by the sum of its first few terms. We are
+confident that our approach can be applied to the analysis of many applied
+problems. In some cases, it may be preferable to use this approach, but not,
+for instance, Monte Carlo methods, which are known for their properties of
+slow convergence.
+
+Here we can formulate a necessary condition for the realization of the NBL%
+
+\begin{equation}
+\left\vert \frac{1}{\pi n}%
+%TCIMACRO{\dint \limits_{x=0}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{+\infty}}
+%EndExpansion
+x^{Y\imath}f(x)dx\right\vert \ll%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)dx,Y=\frac{2\pi n}{\ln(10)},n\in%
+%TCIMACRO{\U{2115} }%
+%BeginExpansion
+\mathbb{N}
+%EndExpansion
+. \label{NBLcond}%
+\end{equation}
+From a practical point of view, the ratio of an (oscillating part)/(log part)
+should be $o(10^{-3}).$
+
+This approach can be applied for different radices (bases), and then%
+\begin{align*}
+\rho(k,B)  &  =\Omega(\log_{B}(k+1)-\lfloor\log_{B}(k)\rfloor)-\Omega\left(
+\log_{B}(k)-\lfloor\log_{B}(k)\rfloor\right)  ),\\
+\log_{B}(k)  &  =\frac{\ln(k)}{\ln(B)},1<B,B\text{ positive integer.}%
+\end{align*}
+%
+
+%TCIMACRO{\TeXButton{Appendices}{\section*{APPENDICES}}}%
+%BeginExpansion
+\section*{APPENDICES}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Define Title of Appendix}%
+%{Now we will look in more detail at some of the technical aspects}}%
+%BeginExpansion
+Now we will look in more detail at some of the technical aspects%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Beginning of Appendix}{\appendix}}%
+%BeginExpansion
+\appendix
+%EndExpansion
+
+
+\section{Solution of the Functional Equations}%
+
+%TCIMACRO{\TeXButton{\label{SofFE}}{\label{SofFE}}}%
+%BeginExpansion
+\label{SofFE}%
+%EndExpansion
+
+
+Let's temporarily forget about probabilities and consider (\ref{eq1}%
+,\ref{eq2}$)$ as functional equations with specific symmetry properties. For
+the PDF of the leading digits we have%
+
+\begin{align*}
+k  &  \in\lbrack10^{L},10^{L+1}-1],L\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast},\\
+L  &  =\lfloor\log(k)\rfloor,0\leq\rho(k,L)\leq1.
+\end{align*}%
+\begin{equation}%
+%TCIMACRO{\dsum \limits_{k=10^{L}}^{10^{L+1}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{k=10^{L}}^{10^{L+1}-1}}
+%EndExpansion
+\rho(k,L)=\digamma. \label{eq1}%
+\end{equation}%
+\begin{equation}
+\rho(k,0)=%
+%TCIMACRO{\dsum \limits_{i=0}^{10^{L}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{10^{L}-1}}
+%EndExpansion
+\rho(10^{L}k+i,L),L\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast}. \label{eq2}%
+\end{equation}
+
+
+\subsection{Partial solutions}%
+
+%TCIMACRO{\TeXButton{PartialSolutions}{\label{PartialSolutions}}}%
+%BeginExpansion
+\label{PartialSolutions}%
+%EndExpansion
+Using equations (\ref{eq1},\ref{eq2}) we can find the partial solutions. Now
+we will consider different types of solutions of the equations.
+
+\begin{itemize}
+\item $\rho(k)=f(L)$
+\end{itemize}
+
+After substitution in (\ref{eq2}) we obtain%
+\begin{align*}
+f(0)  &  =10^{L}f(L),\\
+f(L)  &  =C_{0}10^{-L}.
+\end{align*}
+From equation (\ref{eq1}) we have%
+\begin{align}
+f(L)  &  =10^{-L}\frac{\digamma}{9},\label{SolL}\\
+\rho(k)  &  =\frac{\digamma}{9}10^{-\lfloor\log(k)\rfloor}.\nonumber
+\end{align}
+
+
+\begin{itemize}
+\item $\rho(k,L)=f(k)$
+\end{itemize}
+
+Then%
+\begin{equation}
+f(k)=%
+%TCIMACRO{\dsum \limits_{i=0}^{10^{L}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{10^{L}-1}}
+%EndExpansion
+f(10^{L}k+i),L=0,1,\ldots. \label{SolEq2}%
+\end{equation}
+
+
+Bearing in mind (\ref{MainFormulation}), we will consider solutions of the
+form%
+\begin{equation}
+f(k)=g(k+1)-g(k). \label{Sdiff1}%
+\end{equation}
+Then for $L=1$
+\begin{align*}
+g(k+1)-g(k)  &  =g(10(k+1))-g(10k),\\
+g(10k)-g(k)  &  =g(10(k+1))-g(k+1).
+\end{align*}
+then
+\begin{align*}
+g(10k)-g(k)  &  =g(10(k+1))-g(k+1)=A=const,\\
+k  &  \in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{align*}
+We get the functional equation
+\begin{equation}
+g(10k)-g(k)=A. \label{funcEq1}%
+\end{equation}
+
+
+Let us solve the functional equation (\ref{funcEq1}). Introduce the parameter
+$\tau$ and two unknown functions $\psi(\tau)$ and $\varphi(\tau)$%
+
+\begin{align}
+k  &  =\varphi(\tau),10k=\varphi(\tau+1),\label{Fun1}\\
+g(k)  &  =\psi(\tau),g(10k)=\psi(\tau+1).\nonumber
+\end{align}%
+\begin{align}
+10\varphi(\tau)  &  =\varphi(\tau+1),\label{Fun2}\\
+\psi(\tau+1)-\psi(\tau)  &  =A.\nonumber
+\end{align}
+The solutions of the difference equations are%
+\begin{align*}
+\varphi(\tau)  &  =10^{\tau}P_{1}(\tau),P_{1}(\tau+1)=P_{1}(\tau),\forall
+\tau,\\
+\psi(\tau)  &  =A\tau+Q_{1}(\tau),Q_{1}(\tau+1)=Q_{1}(\tau),\forall\tau.
+\end{align*}
+where $P_{1}(\tau)$ and $Q_{1}(\tau)\ $\ are arbitrary functions with period
+$1$. Then we have a parametric solution of (\ref{funcEq1})%
+\begin{align}
+k  &  =10^{\tau}P_{1}(\tau),\label{Param1}\\
+g(k)  &  =A\tau+Q_{1}(\tau).\nonumber
+\end{align}
+In the partial case when
+\[
+P_{1}(\tau)=1,Q_{1}(\tau)=0,A=1.
+\]
+we have the NBL distribution%
+\begin{equation}
+\rho(k)=\log(k+1)-\log(k).
+\end{equation}
+
+
+If put $P_{1}(\tau)=const$ we have%
+\begin{align*}
+\tau &  =\log(k)+c,\\
+g(k)  &  =A\log(k)+Ac+Q_{1}(\log(k)+c),
+\end{align*}
+%
+
+\begin{equation}
+\rho(k)=A\left(  \log(k+1)-\log(k)\right)  +Q_{1}(\log(k+1)+c)-Q_{1}%
+(\log(k)+c). \label{SolK0}%
+\end{equation}
+
+
+From (\ref{eq1})
+\begin{align}%
+%TCIMACRO{\dsum \limits_{k=10^{L}}^{10^{L+1}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{k=10^{L}}^{10^{L+1}-1}}
+%EndExpansion
+\rho(k)  &  =\digamma,\\
+A+Q_{1}(L+1+c)-Q_{1}(L+c)  &  =\digamma,\nonumber\\
+A  &  =\digamma.\nonumber
+\end{align}%
+\begin{equation}
+\rho(k)=\digamma\left(  \log(k+1)-\log(k)\right)  +Q_{1}(\log(k+1)+c)-Q_{1}%
+(\log(k)+c). \label{SolK}%
+\end{equation}
+
+
+If $1\ll k$, we have%
+\begin{equation}
+\rho(k\rightarrow\infty)=\frac{1}{\ln(10)}\frac{1}{k}+\frac{1}{\ln(10)}%
+\frac{1}{k}\left.  \frac{dQ_{1}(s)}{ds}\right\vert _{s=\log(k)+c}+o\left(
+\frac{1}{k}\right)  . \label{AsymptK}%
+\end{equation}
+If we have some approximation (from experimental data and/or from numerical
+modeling) $f(s)$ where $\hat{s}\leq s\leq\hat{s}+1$ and $3\leq\hat{s}$,
+
+\noindent then%
+\begin{align*}
+G(s)  &  =-s+\ln(10)%
+%TCIMACRO{\dint \limits^{s}}%
+%BeginExpansion
+{\displaystyle\int\limits^{s}}
+%EndExpansion
+10^{t}f(t)dt,\\
+\rho(k)  &  \approx-\log\left(  \frac{k+1}{k}\right)  +\ln(10)%
+%TCIMACRO{\dint \limits_{s}^{s_{1}}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s}^{s_{1}}}
+%EndExpansion
+10^{t}f(t)dt,\\
+s_{1}  &  =\log\left(  k+1\right)  +c,s=\log\left(  k\right)  +c,k=1,2,\ldots.
+\end{align*}
+
+
+\begin{itemize}
+\item $\rho(k,L)$
+\end{itemize}
+
+After some algebra similar to an earlier item, we find%
+\begin{equation}
+\rho(k)=\Omega(\log(k+1)-\lfloor\log(k)\rfloor)-\Omega(\log(k)-\lfloor
+\log(k)\rfloor). \label{SolK_L}%
+\end{equation}
+
+
+\noindent where $\Omega(s)$ is a function of $s$ subject to the restriction%
+\[
+0\leq\rho(k,L)\leq1.
+\]
+Direct substitution of (\ref{SolK_L}) in (\ref{eq2}) give%
+\begin{align}
+&  \Omega(\log(k+1))-\Omega(\log(k))\label{identical2}\\
+&  =%
+%TCIMACRO{\dsum \limits_{i=0}^{10^{L}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{10^{L}-1}}
+%EndExpansion
+\left(  \Omega(\log(10^{L}k+i+1)-L)-\Omega(\log(10^{L}k+i)-L)\right)
+\nonumber\\
+&  =\Omega(\log(k+1))-\Omega(\log(k)),L=0,1,\ldots.\nonumber
+\end{align}
+
+
+\noindent and from (\ref{eq1})%
+\begin{align}
+&
+%TCIMACRO{\dsum \limits_{i=10^{L}}^{10^{L+1}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=10^{L}}^{10^{L+1}-1}}
+%EndExpansion
+\left(  \Omega(\log(i+1)-L)-\Omega(\log(i)-L)\right) \label{identical1}\\
+&  =\Omega(1)-\Omega(0)=\digamma,\nonumber\\
+L  &  =0,1,\ldots.\nonumber
+\end{align}
+
+
+For the distributions of the digits in the second and third positions we have%
+\begin{align*}
+\rho_{2}(m)  &  =%
+%TCIMACRO{\dsum \limits_{i=1}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{9}}
+%EndExpansion
+\rho(10i+m),\\
+\rho_{3}(m)  &  =%
+%TCIMACRO{\dsum \limits_{i=1}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=1}^{9}}
+%EndExpansion%
+%TCIMACRO{\dsum \limits_{j=0}^{9}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=0}^{9}}
+%EndExpansion
+\rho(100i+10j+m),m=0,1,\ldots,9.
+\end{align*}
+For a solution of (\ref{SolL}) we have%
+\[
+\Omega(s)=C10^{s}.
+\]
+and for (\ref{SolK0})%
+\[
+\Omega(s)=C\log(s)+Q_{1}(s).
+\]
+
+
+\section{From Sum to Integral in (\ref{MainFormulation})}%
+
+%TCIMACRO{\TeXButton{EulerMaclaurin}{\label{EulerMaclaurin}}}%
+%BeginExpansion
+\label{EulerMaclaurin}%
+%EndExpansion
+Euler--Maclaurin's formula (\textbf{EMf})%
+%TCIMACRO{\TeXButton{\cite_abramowitz}{\cite{knuth} ,\cite{wabramowitzstegun}
+%and \cite{knuth2}}}%
+%BeginExpansion
+\cite{knuth} ,\cite{wabramowitzstegun}
+and \cite{knuth2}%
+%EndExpansion
+\ gives a representation of sums in form of definite integrals. It is
+important to stress that the \textbf{EMf} is an exact representation of the
+sum in integral form (at least for differentiable functions, it is not an
+approximation). From \textbf{EMf} we have a representation of a sum in the
+form of an integral by (see Appendix
+%TCIMACRO{\TeXButton{\ref{DerForm}}{\ref{DerForm}}}%
+%BeginExpansion
+\ref{DerForm}%
+%EndExpansion
+)\
+\begin{equation}%
+%TCIMACRO{\dsum \limits_{j=a}^{b}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=a}^{b}}
+%EndExpansion
+g(j)=%
+%TCIMACRO{\dint \limits_{x=a}^{b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=a}^{b}}
+%EndExpansion
+\left(  g(x)+\left(  x-\left\lfloor x\right\rfloor -\frac{1}{2}\right)
+\frac{dg(x)}{dx}\right)  dx+\frac{g(b)}{2}+\frac{g(a)}{2},a<b. \label{EM00}%
+\end{equation}
+
+
+We will apply Euler--Maclaurin summation in this form, which is convenient for
+our purposes.
+
+In our case we have%
+\begin{align*}
+g(j)  &  =F(10^{j+\log(k+1)})-F(10^{j+\log(k)})\\
+F(z)  &  =%
+%TCIMACRO{\dint \limits_{-\infty}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{z}}
+%EndExpansion
+f(t)dt.
+\end{align*}
+We can, without loss of generality, put infinite limits of integration, since
+it is always possible to represent the density distribution $\tilde{f}(t)$ as%
+\begin{equation}
+f(t)=\left\{
+\begin{array}
+[c]{cc}%
+0, & t_{\max}<t,\\
+\tilde{f}(t) & t\in\lbrack t_{\min},t_{\max}]\\
+0 & t<t_{\min}.
+\end{array}
+\right.  \label{EM00x}%
+\end{equation}
+
+
+Let us estimate the sums and integrals in (\ref{MainFormulation}).
+
+\subsection{Infinite limits}%
+
+%TCIMACRO{\TeXButton{InfinitLimi}{\label{InfinitLimit}}}%
+%BeginExpansion
+\label{InfinitLimit}%
+%EndExpansion
+We will consider the case where $j_{\min_{{}}}=-$ $\infty$ and $j_{\max
+}=\infty.$ From the Euler--Maclaurin formula, for convention sum to integral
+we have%
+\begin{align}%
+%TCIMACRO{\dsum \limits_{j=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=-\infty}^{\infty}}
+%EndExpansion
+g(j)  &  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+\left(  g(x)+\frac{dg(x)}{dx}\left(  x-\left\lfloor x\right\rfloor -\frac
+{1}{2}\right)  \right)  dx,g(\pm\infty)=0,\label{EM1}\\
+S  &  =I+R,\nonumber\\
+I  &  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+g(x)dx,R=%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+\left(  \frac{dg(x)}{dx}\left(  x-\left\lfloor x\right\rfloor -\frac{1}%
+{2}\right)  \right)  dx.\nonumber
+\end{align}
+
+
+With
+\begin{align*}
+S  &  =%
+%TCIMACRO{\dsum \limits_{j=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=-\infty}^{\infty}}
+%EndExpansion
+\left(  F(10^{j}(k+1))-F(10^{j}k)\right)  ,\\
+F(z)  &  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{z}}
+%EndExpansion
+f(x)dx,f(\pm\infty)=0.
+\end{align*}
+and we have%
+\begin{align}
+I  &  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+\left(  F(10^{x}(k+1))-F(10^{x}k)\right)  dx\label{EM2}\\
+&  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion%
+%TCIMACRO{\dint \limits_{t=\alpha}^{t=\beta}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=\alpha}^{t=\beta}}
+%EndExpansion
+f(t)dtdx,\nonumber\\
+\alpha &  =10^{x}k,\beta=10^{x}(k+1).\nonumber
+\end{align}
+After integration by part we have%
+\[
+I=-%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+x\left(  f(\beta)\frac{d\beta}{dx}-f(\alpha)\frac{d\alpha}{dx}\right)  dx.
+\]
+and%
+\begin{align*}%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+xf(\alpha)\frac{d\alpha}{dx}dx  &  =%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+\left(  \log(s)-\log(k)\right)  f(s)ds\\
+&  =-\log(k)%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)ds+%
+%TCIMACRO{\dint \limits_{\alpha=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{\alpha=0}^{\infty}}
+%EndExpansion
+\log(s)f(s)ds.
+\end{align*}
+Then the integral part is%
+\begin{equation}
+I=\left(  \log(k+1)-\log(k)\right)
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)ds. \label{Iform}%
+\end{equation}
+For the evaluation of the second term in (\ref{EM1}), we have%
+\[
+R=%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+\left(  f(\beta)\frac{d\beta}{dx}-f(\alpha)\frac{d\alpha}{dx}\right)  \left(
+x-\left\lfloor x\right\rfloor -\frac{1}{2}\right)  dx
+\]
+and%
+\begin{align*}
+&
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+f(\alpha)\frac{d\alpha}{dx}\left(  x-\left\lfloor x\right\rfloor -\frac{1}%
+{2}\right)  dx\\
+&  =%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)\left(  \log\left(  \frac{s}{k}\right)  -\left\lfloor \log\left(  \frac
+{s}{k}\right)  \right\rfloor -\frac{1}{2}\right)  ds,
+\end{align*}
+then the residual part is%
+\begin{align}
+R  &  =-%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)\left(  \log(k+1)-\log(k)-\left\lfloor \log\left(  \frac{s}{k+1}\right)
+\right\rfloor +\left\lfloor \log\left(  \frac{s}{k}\right)  \right\rfloor
+\right)  ds\label{Rform}\\
+&  =-\left(  \log(k+1)-\log(k)\right)
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)ds+%
+%TCIMACRO{\dint \limits_{t=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=0}^{\infty}}
+%EndExpansion
+f(t)\left(  \left\lfloor \log\left(  \frac{t}{k}\right)  \right\rfloor
+-\left\lfloor \log\left(  \frac{t}{k+1}\right)  \right\rfloor \right)
+dt.\nonumber
+\end{align}
+We obtain the general form of $\rho(k)$ as%
+\begin{equation}
+\rho(k)=%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(t)\left(  \left\lfloor \log\left(  \frac{t}{k}\right)  \right\rfloor
+-\left\lfloor \log\left(  \frac{t}{k+1}\right)  \right\rfloor \right)  dt.
+\label{EM5}%
+\end{equation}
+
+
+From this we have an integral representation of $\Omega(s)$ (provided the
+integral exists)%
+\begin{equation}
+\Omega(s)=-%
+%TCIMACRO{\dint \limits_{t=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{t=0}^{\infty}}
+%EndExpansion
+f(t)\left\lfloor \log\left(  t\right)  -s\right\rfloor dt+const
+\label{OmegaInt}%
+\end{equation}
+\bigskip
+
+\bigskip Another form is%
+\begin{align}
+\rho(k)  &  =\digamma\left(  \log(k+1)-\log(k)\right)  +\label{RMain}\\
+&
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)\left(  \log\left(  \frac{s}{k+1}\right)  -\left\lfloor \log\left(
+\frac{s}{k+1}\right)  \right\rfloor \right)  ds-%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)\left(  \log\left(  \frac{s}{k}\right)  -\left\lfloor \log\left(  \frac
+{s}{k}\right)  \right\rfloor \right)  ds,\nonumber\\
+\digamma &  =%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(s)ds.
+\end{align}
+If we introduce the $1$-periodic function $Q_{1}(s)$
+\begin{align}
+Q_{1}(\log(k))  &  =%
+%TCIMACRO{\dint \limits_{s=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{\infty}}
+%EndExpansion
+f(t)\left(  \log\left(  \frac{t}{k}\right)  -\left\lfloor \log\left(  \frac
+{t}{k}\right)  \right\rfloor \right)  dt,\label{EM7}\\
+Q_{1}(s+1)  &  =Q_{1}(s).\nonumber
+\end{align}%
+\begin{align}
+Q_{1}(\log(k))  &  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{\infty}}
+%EndExpansion
+\ln(10)10^{x}kf(10^{x}k)\left(  x-\left\lfloor x\right\rfloor \right)  dx,\\
+Q_{1}(s+1)  &  =Q_{1}(s).\nonumber
+\end{align}
+
+
+\noindent and because%
+\[
+0\leq\left(  \log\left(  \frac{s}{k}\right)  -\left\lfloor \log\left(
+\frac{s}{k}\right)  \right\rfloor \right)  \leq1
+\]
+then%
+\[
+\left\vert Q_{1}(\log(k))\right\vert \leq\digamma.
+\]
+Then we can rewrite (\ref{RMain}) as%
+
+\begin{equation}
+S=\rho(k)=\digamma\left(  \log\left(  k+1\right)  -\log\left(  k\right)
+\right)  +Q_{1}(\log(k+1))-Q_{1}(\log(k)). \label{MainEM0}%
+\end{equation}
+
+
+\subsection{Fourier Expansion}
+
+\
+%TCIMACRO{\TeXButton{FourieExpan}{\label{FourieExpan}}}%
+%BeginExpansion
+\label{FourieExpan}%
+%EndExpansion
+\ Let us consider the $1$-periodic function $Q_{1}(s)$ (\ref{EM7})
+\begin{equation}
+Q_{1}(s)=%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)\left(  \log\left(  x\right)  -s-\left\lfloor \log\left(  x\right)
+-s\right\rfloor \right)  dx. \label{Fouri1}%
+\end{equation}
+
+
+We will consider the Fourier expansion%
+\[
+Q_{1}(s)=const+%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\left(  A_{j}\sin\left(  2\pi js\right)  +B_{j}\cos\left(  2\pi js\right)
+\right)  .
+\]
+Because%
+\begin{align*}
+a_{n}(c)  &  =%
+%TCIMACRO{\dint \limits_{s=0}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{1}}
+%EndExpansion
+\left(  c-s-\left\lfloor c-s\right\rfloor \right)  \sin\left(  2\pi ns\right)
+ds\left(
+%TCIMACRO{\dint \limits_{s=0}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{1}}
+%EndExpansion
+\sin\left(  2\pi ns\right)  ^{2}ds\right)  ^{-1},\\
+b_{n}(c)  &  =%
+%TCIMACRO{\dint \limits_{s=0}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{1}}
+%EndExpansion
+\left(  c-s-\left\lfloor c-s\right\rfloor \right)  \cos\left(  2\pi ns\right)
+ds\left(
+%TCIMACRO{\dint \limits_{s=0}^{1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{s=0}^{1}}
+%EndExpansion
+\cos\left(  2\pi ns\right)  ^{2}ds\right)  ^{-1}.
+\end{align*}
+and%
+\begin{align*}
+\left(  \log\left(  x\right)  -s-\left\lfloor \log\left(  x\right)
+-s\right\rfloor \right)   &  =a_{0}+%
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\left(  a_{n}\sin\left(  2\pi ns\right)  +b_{n}\cos\left(  2\pi ns\right)
+\right) \\
+a_{n}  &  =\frac{\cos(2\pi n\log\left(  x\right)  )}{n\pi},b_{n}=-\frac
+{\sin(2\pi n\log\left(  x\right)  )}{n\pi},1\leq n.
+\end{align*}
+we have then%
+\begin{align}
+\digamma &  =%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)dx,\label{Fouri2}\\
+A_{n}  &  =\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)\cos(2\pi n\log\left(  x\right)  )dx,\\
+B_{n}  &  =-\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)\sin(2\pi n\log\left(  x\right)  )dx,1\leq n.\nonumber
+\end{align}
+
+
+\noindent in another form
+\begin{align}
+A_{n}+\imath B_{n}  &  =\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+f(x)\exp(-2\pi n\log\left(  x\right)  \imath)dx\label{A_B_Fourier}\\
+&  =\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+x^{-\imath Y}f(x)dx,\nonumber\\
+Y  &  =\frac{2\pi n}{\ln(10)}.\nonumber
+\end{align}
+or in complex polar form we have%
+\[
+A_{n}+\imath B_{n}=\Lambda(n)\exp(\imath\varphi(n))=\frac{1}{n\pi}%
+%TCIMACRO{\dint \limits_{x=0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=0}^{\infty}}
+%EndExpansion
+x^{-\imath Y}f(x)dx.
+\]
+
+
+Then%
+\begin{align}
+\rho(k)  &  =\digamma(\log\left(  k+1\right)  -\log\left(  k\right)
+)+\label{Fouri3}\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\left(
+\begin{array}
+[c]{c}%
+A_{n}\left(  \sin\left(  ns_{1}\right)  -\sin\left(  ns\right)  \right) \\
++B_{n}(\cos\left(  ns_{1}\right)  -\cos\left(  ns\right)  )
+\end{array}
+\right)  ,\nonumber\\
+s_{1}  &  =2\pi\log\left(  k+1\right)  ,s=2\pi\log\left(  k\right)  .\nonumber
+\end{align}
+
+
+\noindent then%
+\begin{align}
+\rho(k)  &  =\digamma(\log\left(  k+1\right)  -\log\left(  k\right)
+)+\label{Fouri4}\\
+&
+%TCIMACRO{\dsum \limits_{n=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{n=1}^{\infty}}
+%EndExpansion
+\Lambda(n)\left(  \sin\left(  ns_{1}+\varphi(n)\right)  -\sin\left(
+ns+\varphi(n)\right)  \right)  .\nonumber
+\end{align}
+
+
+\section{Ratio of Two Positive Numbers with a UD}%
+
+%TCIMACRO{\TeXButton{\label{R2PNUD}}{\label{R2PNUD}}}%
+%BeginExpansion
+\label{R2PNUD}%
+%EndExpansion
+
+
+Because
+\[
+f_{Z}(z)=%
+%TCIMACRO{\dint }%
+%BeginExpansion
+{\displaystyle\int}
+%EndExpansion
+\delta\left(  z-g(x_{1}\ldots x_{n})\right)  dx_{1}\ldots dx_{n}.
+\]
+\bigskip
+
+\noindent where $\delta$\ is the Dirac delta function, we can find the PDF for
+different transformations of stochastical variables.\ Let us assume that
+$f_{X}(x)$ is a PDF for $0\leq x$ and $f_{Y}(y)$ is a PDF for $0\leq y$. We
+need to find the density of $z=\frac{y}{x}$. If the two random variables are
+independent, then%
+
+\[
+f_{XY}(x,y)=f_{X}(x)f_{Y}(y)
+\]
+The distribution function for $Z$ is%
+\[
+F(z)=%
+%TCIMACRO{\dint \limits^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits^{z}}
+%EndExpansion
+f_{Z}(s)ds.
+\]
+Let us transform the variables%
+\[
+x=\alpha,y=\beta\alpha.
+\]
+Then the Jacobian of the transformation is%
+\[
+J=\frac{\partial\left(  x,y\right)  }{\partial\left(  \alpha,\beta\right)
+}=\det\left(
+\begin{array}
+[c]{cc}%
+\frac{\partial x}{\partial\alpha} & \frac{\partial y}{\partial\alpha}\\
+\frac{\partial x}{\partial\beta} & \frac{\partial y}{\partial\beta}%
+\end{array}
+\right)  =\det\left(
+\begin{array}
+[c]{cc}%
+1 & \beta\\
+0 & \alpha
+\end{array}
+\right)  =\alpha.
+\]
+in case ($x\in(-\infty\ldots+\infty)$ and $y\in(-\infty\ldots+\infty) $)
+\begin{align*}
+F(z)  &  =%
+%TCIMACRO{\dint \limits_{-\infty}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{z}}
+%EndExpansion
+\left[
+%TCIMACRO{\dint \limits_{-\infty}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{+\infty}}
+%EndExpansion
+\alpha f_{XY}(\alpha,z\alpha)d\alpha\right]  d\beta\\
+&  =%
+%TCIMACRO{\dint \limits_{-\infty}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{z}}
+%EndExpansion
+\left[
+%TCIMACRO{\dint \limits_{-\infty}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{+\infty}}
+%EndExpansion
+\alpha f_{X}(\alpha)f_{Y}(z\alpha)d\alpha\right]  d\beta
+\end{align*}
+and then%
+\[
+f_{Z}(z)=%
+%TCIMACRO{\dint \limits_{-\infty}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{\infty}}
+%EndExpansion
+\alpha f_{XY}(\alpha,z\alpha)d\alpha
+\]
+
+
+\subsection{Uniform Distributions}%
+
+%TCIMACRO{\TeXButton{\label{UD}}{\label{UD}}}%
+%BeginExpansion
+\label{UD}%
+%EndExpansion
+
+
+\bigskip%
+
+\[
+f_{X}(x)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{b_{x}-a_{x}}, & x\in\lbrack a_{x},b_{x}]\\
+0, & x\notin\lbrack a_{x},b_{x}]
+\end{array}
+\right.
+\]%
+\[
+f_{Y}(y)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{b_{y}-a_{y}}, & y\in\lbrack a_{y},b_{y}]\\
+0, & y\notin\lbrack a_{y},b_{y}]
+\end{array}
+\right.
+\]
+%
+
+\[
+\frac{a_{y}}{b_{x}}\leq z\leq\frac{b_{y}}{a_{x}},0<a_{x}.
+\]%
+\begin{align*}
+f_{Z}(z)  &  =\frac{1}{\left(  b_{x}-a_{x}\right)  \left(  b_{y}-a_{y}\right)
+}%
+%TCIMACRO{\dint \limits_{\max(a_{x},z^{-1}a_{y})}^{\min(b_{x},z^{-1}b_{y})}}%
+%BeginExpansion
+{\displaystyle\int\limits_{\max(a_{x},z^{-1}a_{y})}^{\min(b_{x},z^{-1}b_{y})}}
+%EndExpansion
+xdx\\
+&  =\frac{\min(b_{x},z^{-1}b_{y})^{2}-\max(a_{x},z^{-1}a_{y})^{2}}{2\left(
+b_{x}-a_{x}\right)  \left(  b_{y}-a_{y}\right)  },
+\end{align*}%
+\[%
+%TCIMACRO{\dint \limits_{z=\frac{a_{y}}{b_{x}}}^{z=\frac{b_{y}}{a_{x}}}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=\frac{a_{y}}{b_{x}}}^{z=\frac{b_{y}}{a_{x}}}}
+%EndExpansion
+f_{z}(z)dz=1,0<a_{x}.
+\]%
+\[
+f_{z}(z)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{\left(  b_{x}-a_{x}\right)  }{2\left(  b_{y}-a_{y}\right)  } &
+\begin{array}
+[c]{c}%
+0<z,\min(b_{x},z^{-1}b_{y})=b_{x},\max(a_{x},z^{-1}a_{y})=a_{x},\\
+\frac{a_{y}}{a_{x}}<z<\frac{b_{y}}{b_{x}}%
+\end{array}
+\\
+\frac{b_{y}^{2}z^{-2}-a_{x}^{2}}{2\left(  b_{x}-a_{x}\right)  \left(
+b_{y}-a_{y}\right)  } & \min(b_{x},z^{-1}b_{y})=z^{-1}b_{y},\max(a_{x}%
+,z^{-1}a_{y})=a_{x},\\
+\frac{z^{-2}\left(  b_{y}-a_{y}\right)  }{2\left(  b_{x}-a_{x}\right)  } &
+\min(b_{x},z^{-1}b_{y})=z^{-1}b_{y},\max(a_{x},z^{-1}a_{y})=z^{-1}a_{y},\\
+0, & \text{otherwise.}%
+\end{array}
+\right.
+\]
+and%
+\begin{align*}
+f_{Z}(z)  &  =\frac{\min(b_{x},z^{-1}b_{y})^{2}}{2b_{x}b_{y}},a_{x}%
+=0,a_{y}=0,\\
+f_{z}(z)  &  =\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{2\delta} & 0<z,z<=\delta,\delta=\frac{b_{y}}{b_{x}},\\
+\frac{\delta}{2}z^{-2} & \delta<=z.
+\end{array}
+\right.  ,\\
+F(z)  &  =%
+%TCIMACRO{\dint \limits_{0}^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits_{0}^{z}}
+%EndExpansion
+f_{z}(z)dz=\left\{
+\begin{array}
+[c]{cc}%
+\frac{z}{2\delta} & 0<z,z<=\delta,\\
+1-\frac{\delta}{2}z^{-1} & \delta<=z.
+\end{array}
+\right.
+\end{align*}
+
+
+For example%
+\[
+a_{x}=1,b_{x}=2,a_{y}=3,b_{y}=7.
+\]%
+\[
+f_{Z}(z)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{2}-\frac{9}{8z^{2}} & \frac{3}{2}<z\leq3\\
+\frac{3}{8} & 3<z\leq\frac{7}{2}\\
+\frac{49}{8z^{2}}-\frac{1}{8} & \frac{7}{2}<z<7\\
+0, & \text{otherwise.}%
+\end{array}
+\right.
+\]
+%
+
+\[
+\Omega(s)=\left\{
+\begin{array}
+[c]{cc}%
+0, & s\leq0\\
+\frac{1}{16}, & s=\log(2)\\
+\frac{3}{8}, & s=\log(3)\\
+\frac{23}{32}, & s=\log(4)\\
+\frac{9}{10}, & s=\log(5)\\
+\frac{47}{48}, & s=\log(6)\\
+1, & \text{otherwise.}%
+\end{array}
+\right.
+\]%
+\[
+\rho(k)=\Omega(\log(k+1))-\Omega(\log(k)),\Omega(1)-\Omega(0)=1.
+\]
+%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k)}$ & $\frac{{\small 1}}{16}$ & $\frac{{\small 5}}{16}$ &
+$\frac{{\small 11}}{32}$ & $\frac{{\small 29}}{160}$ & $\frac{{\small 19}%
+}{240}$ & $\frac{{\small 1}}{48}$ & $0$ & ${\small 0}$ & ${\small 0}%
+$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 12}\label{TableKey12}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\section{The Product of Two Random Positive Numbers from a UD}%
+
+%TCIMACRO{\TeXButton{\label{P2RNUD}}{\label{P2RNUD}}}%
+%BeginExpansion
+\label{P2RNUD}%
+%EndExpansion
+
+
+Let $f_{X}(x)$ be a PDF for $0\leq x$ and $f_{Y}(y)$ a PDF for $0\leq y$. We
+need to find the density of $z=xy$. If the two random variables are
+independent, then in this case%
+
+\[
+f_{XY}(x,y)=f_{X}(x)f_{Y}(y)
+\]
+The distribution function for $Z$ is%
+\[
+F(z)=%
+%TCIMACRO{\dint \limits^{z}}%
+%BeginExpansion
+{\displaystyle\int\limits^{z}}
+%EndExpansion
+f_{Z}(s)ds.
+\]
+Let us transform the variables%
+\[
+x=\alpha,y=\frac{\beta}{\alpha}.
+\]
+Then the Jacobian of the transformation is%
+\[
+J=\det\left(
+\begin{array}
+[c]{cc}%
+\frac{\partial x}{\partial\alpha} & \frac{\partial y}{\partial\alpha}\\
+\frac{\partial x}{\partial\beta} & \frac{\partial y}{\partial\beta}%
+\end{array}
+\right)  =\det\left(
+\begin{array}
+[c]{cc}%
+1 & -\frac{\beta}{\alpha^{2}}\\
+0 & \frac{1}{\alpha}%
+\end{array}
+\right)  =\frac{1}{\alpha}.
+\]%
+\[
+f_{z}(z)=%
+%TCIMACRO{\dint \limits_{-\infty}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{+\infty}}
+%EndExpansion
+\frac{1}{\alpha}f_{X}(\alpha)f_{Y}\left(  \frac{z}{\alpha}\right)  d\alpha
+\]
+In the case of a uniform distribution, we have%
+\begin{align*}
+f_{z}(z)  &  =\frac{\ln\left(  \min\left(  b_{x},\frac{z}{a_{y}}\right)
+\right)  -\ln\left(  \max\left(  a_{x},\frac{z}{b_{y}}\right)  \right)
+}{\left(  b_{x}-a_{x}\right)  \left(  b_{y}-a_{y}\right)  }.\\
+a_{x}a_{y}  &  \leq z\leq b_{x}b_{y}.
+\end{align*}%
+\[%
+%TCIMACRO{\dint \limits_{z=a_{x}a_{y}}^{z=b_{x}b_{y}}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=a_{x}a_{y}}^{z=b_{x}b_{y}}}
+%EndExpansion
+f_{z}(z)dz=1.
+\]
+
+
+When%
+\begin{align*}
+a_{x}  &  =0,a_{y}=0,\\
+f_{z}(z)  &  =-\frac{\ln\left(  \frac{z}{b_{x}b_{y}}\right)  }{b_{x}b_{y}%
+},0\leq z\leq b_{x}b_{y}%
+\end{align*}
+For example%
+\[
+a_{x}=1,b_{x}=2,a_{y}=3,b_{y}=7.
+\]%
+\[
+f_{z}(z)=\left\{
+\begin{array}
+[c]{cc}%
+\frac{\ln\left(  z\right)  -\ln\left(  3\right)  }{4} & 3<z\leq6\\
+\frac{\ln(2)}{4} & 6<z\leq7\\
+\frac{\ln(14)-\ln\left(  z\right)  }{4} & 7<z\leq14\\
+0, & \text{otherwise.}%
+\end{array}
+\right.
+\]%
+\[%
+%TCIMACRO{\dint \limits_{z=3}^{z=14}}%
+%BeginExpansion
+{\displaystyle\int\limits_{z=3}^{z=14}}
+%EndExpansion
+f_{z}(z)dz=1.
+\]
+For this distribution, the leading digits are $[1,3,4,5,6,7,8,9]$, and the
+probability of the digit $2$ is $0$.
+
+\bigskip%
+
+%TCIMACRO{\TeXButton{B}{\begin{table}[!htbp] \centering}}%
+%BeginExpansion
+\begin{table}[!htbp] \centering
+%EndExpansion%
+\begin{tabular}
+[c]{|c|c|c|c|c|c|c|c|c|c|}\hline\hline
+${\small k}$ & ${\small 1}$ & ${\small 2}$ & ${\small 3}$ & ${\small 4}$ &
+${\small 5}$ & ${\small 6}$ & ${\small 7}$ & ${\small 8}$ & ${\small 9}%
+$\\\hline
+${\small \rho(k)}$ & ${\small .1587}$ & ${\small 0}$ & ${\small .0337}$ &
+${\small .1009}$ & ${\small .1511}$ & ${\small .1733}$ & ${\small .1563}$ &
+${\small .1250}$ & ${\small .0970}$\\\hline\hline
+\end{tabular}
+\caption{Table Caption 13}\label{TableKey13}%
+%TCIMACRO{\TeXButton{E}{\end{table}}}%
+%BeginExpansion
+\end{table}%
+%EndExpansion
+
+
+\subsection{Leading significant digits}%
+
+%TCIMACRO{\TeXButton{\label{P2RNUDLSD}}{\label{P2RNUDLSD}}}%
+%BeginExpansion
+\label{P2RNUDLSD}%
+%EndExpansion
+%
+
+\begin{align*}
+a_{x}  &  =0,a_{y}=0,b_{x}=1,b_{y}=1,\\
+f_{z}(z)  &  =-\ln\left(  z\right)  ,0\leq z\leq1,\\
+F(z)  &  =z-z\ln\left(  z\right)  .
+\end{align*}%
+\[
+\rho(k)=\frac{1}{9}\left(  k\ln(k)-(k+1)\ln(k+1)+1+\frac{10}{9}\ln(10)\right)
+,1\leq k\leq9.
+\]
+%
+
+\begin{align*}
+\rho(k,L)  &  =\frac{10^{-L}}{9}\left(  k\ln(k)-(k+1)\ln(k+1)+1+\frac{\left(
+9L+10\right)  }{9}\ln(10)\right)  ,\\
+10^{L}  &  \leq k\leq10^{L+1}-1,L=0,1,\ldots.
+\end{align*}%
+\[%
+%TCIMACRO{\dsum \limits_{k=10^{L}}^{10^{L+1}-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{k=10^{L}}^{10^{L+1}-1}}
+%EndExpansion
+\rho(k,L)=1,L\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+^{\ast}.
+\]
+
+
+\section{Product of $n$ Numbers from a UD}%
+
+%TCIMACRO{\TeXButton{\label{PRNUD}}{\label{PRNUD}}}%
+%BeginExpansion
+\label{PRNUD}%
+%EndExpansion
+
+
+\bigskip
+
+We have%
+\begin{align*}
+f_{Z}(z,n)  &  =\frac{(-\ln(z))^{in-1}}{\left(  n-1\right)  !},\\
+F_{Z}(z,n)  &  =\frac{\Gamma(n,-\ln(z))}{\Gamma(n)}=z%
+%TCIMACRO{\dsum \limits_{i=0}^{n}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{n}}
+%EndExpansion
+(-1)^{i}\frac{(\ln(z))^{i}}{i!},n\in%
+%TCIMACRO{\U{2115} }%
+%BeginExpansion
+\mathbb{N}
+%EndExpansion
+.
+\end{align*}%
+\begin{align*}
+\rho(k,n)  &  =%
+%TCIMACRO{\dsum \limits_{m=-\infty}^{-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{m=-\infty}^{-1}}
+%EndExpansion
+\left(  F_{Z}(10^{m}(k+1))-F_{Z}(10^{m}k),n\right) \\
+&  =\Omega\left(  \log(k+1)-\left\lfloor \log(k)\right\rfloor \right)
+-\Omega\left(  \log(k)-\left\lfloor \log(k)\right\rfloor \right)
+\end{align*}
+
+
+\bigskip From (\ref{EM00}) we have
+\begin{align}
+a  &  =-\infty,b=-1,\label{ProdN}\\
+g(x,k,n)  &  =\frac{\Gamma(n,-\ln(10^{x}(k+1)))}{\Gamma(n)}-\frac
+{\Gamma(n,-\ln(10^{x}k))}{\Gamma(n)},\nonumber\\
+I_{1}(k,n)  &  =%
+%TCIMACRO{\dint \limits_{x=-\infty}^{-1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{-1}}
+%EndExpansion
+g(x,k,n)dx,I_{2}=%
+%TCIMACRO{\dint \limits_{x=-\infty}^{-1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=-\infty}^{-1}}
+%EndExpansion
+\left(  x-\lfloor x\rfloor-\frac{1}{2}\right)  \frac{dg(x,k,n)}{dx}%
+dx,\nonumber\\
+I_{3}  &  =\frac{g(-1,k,n)}{2},I_{4}=\frac{g(-\infty,k,n)}{2}=0.\nonumber
+\end{align}
+
+
+\bigskip From the graph we have%
+
+%TCIMACRO{\TeXButton{B}{\begin{figure}[H] \centering}}%
+%BeginExpansion
+\begin{figure}[H] \centering
+%EndExpansion%
+%TCIMACRO{\FRAME{itbpFU}{5.4509in}{3.9487in}{0in}{\Qcb{g(x,1,10) vs x}}%
+%{}{integrant10.png}{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 5.4509in;  height 3.9487in;  depth 0in;  original-width 5.393in;
+%original-height 3.9003in;  cropleft "0";  croptop "0.997345";  cropright "1";
+%cropbottom "-0.002655";
+%filename '../../MY TeX Work/Integrant10.png';file-properties "NPEU";}} }%
+%BeginExpansion
+{\parbox[b]{5.4509in}{\begin{center}
+\includegraphics[
+trim=0.000000in -0.010355in 0.000000in 0.010355in,
+natheight=3.900300in,
+natwidth=5.393000in,
+height=3.9487in,
+width=5.4509in
+]%
+{../../MY TeX Work/Integrant10.png}%
+\\
+g(x,1,10) vs x
+\end{center}}}
+%EndExpansion
+\caption{$g(x,1,10)$ vs $x$}\label{figureKey14}%
+%TCIMACRO{\TeXButton{E}{\end{figure}}}%
+%BeginExpansion
+\end{figure}%
+%EndExpansion
+
+
+\bigskip
+
+The maximum of $g(x,k,n>>1)$\ is at the point $x=\zeta(n)$, where
+$\zeta(n>>1)=-\frac{n}{\ln(10)}+o(n)$. Now we can, without loss of accuracy,
+change the upper limit to $+\infty.$ With the knowledge of (\ref{EM2}) and
+(\ref{Iform}),%
+\begin{equation}
+I_{1}(k,n\rightarrow\infty)=\log(k+1)-\log(k),\digamma=1. \label{Prof1}%
+\end{equation}
+
+
+We can prove that the integrals as $n\rightarrow+\infty$ have the limits%
+\[
+I_{2}(k,+\infty)=0,I_{3}(k,+\infty)=0.
+\]
+
+
+This is the NBL Distribution.
+
+\section{Derivation of Formula (\ref{EM00})}
+
+\bigskip%
+%TCIMACRO{\TeXButton{\label{DerForm}}{\label{DerForm}}}%
+%BeginExpansion
+\label{DerForm}%
+%EndExpansion
+
+
+If we have integers $a$ and $b$ ($a<b$), then for an integer $j$ we have,
+after integration by parts,
+\begin{align*}%
+%TCIMACRO{\dint \limits_{j}^{j+1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{j}^{j+1}}
+%EndExpansion
+g(x)dx  &  =%
+%TCIMACRO{\dint \limits_{j}^{j+1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{j}^{j+1}}
+%EndExpansion
+g(x)\frac{d\left(  x-j-\frac{1}{2}\right)  }{dx}dx\\
+&  =\frac{g(j+1)}{2}+\frac{g(j)}{2}-%
+%TCIMACRO{\dint \limits_{x=j}^{j+1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=j}^{j+1}}
+%EndExpansion
+\left(  x-j-\frac{1}{2}\right)  \frac{dg(x)}{dx}dx,\\
+\left(  x-j-\frac{1}{2}\right)   &  =x-\lfloor x\rfloor-\frac{1}{2}.
+\end{align*}
+Then after summation%
+\begin{align*}%
+%TCIMACRO{\dsum \limits_{j=a}^{b-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=a}^{b-1}}
+%EndExpansion%
+%TCIMACRO{\dint \limits_{j}^{j+1}}%
+%BeginExpansion
+{\displaystyle\int\limits_{j}^{j+1}}
+%EndExpansion
+g(x)dx  &  =%
+%TCIMACRO{\dint \limits_{a}^{b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{a}^{b}}
+%EndExpansion
+g(x)dx,\\%
+%TCIMACRO{\dint \limits_{a}^{b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{a}^{b}}
+%EndExpansion
+g(x)dx  &  =%
+%TCIMACRO{\dsum \limits_{j=a}^{b}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=a}^{b}}
+%EndExpansion
+g(j)-\frac{g(b)}{2}-\frac{g(a)}{2}-%
+%TCIMACRO{\dint \limits_{x=a}^{b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{x=a}^{b}}
+%EndExpansion
+\left(  x-\lfloor x\rfloor-\frac{1}{2}\right)  \frac{dg(x)}{dx}dx.
+\end{align*}
+Then%
+\[%
+%TCIMACRO{\dsum \limits_{j=a}^{b}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=a}^{b}}
+%EndExpansion
+g(j)=%
+%TCIMACRO{\dint \limits_{a}^{b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{a}^{b}}
+%EndExpansion
+\left(  g(x)+\left(  x-\lfloor x\rfloor-\frac{1}{2}\right)  \frac{dg(x)}%
+{dx}\right)  dx+\frac{g(b)}{2}+\frac{g(a)}{2}.
+\]
+
+
+\section{Useful Relations}
+
+\bigskip
+
+\begin{itemize}
+\item For any non-negative function $f(x)$ with \
+\[
+0<\digamma=%
+%TCIMACRO{\dint \limits_{0}^{\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{0}^{\infty}}
+%EndExpansion
+f(t)dt<const
+\]
+and positive $a$ and $b$ we have, after integration by parts applied to the
+left integral,
+\[%
+%TCIMACRO{\dint \limits_{-\infty}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{+\infty}}
+%EndExpansion%
+%TCIMACRO{\dint \limits_{10^{x}a}^{10^{x}b}}%
+%BeginExpansion
+{\displaystyle\int\limits_{10^{x}a}^{10^{x}b}}
+%EndExpansion
+f(t)dtdx=I_{b}-I_{a}.
+\]%
+\[
+I_{a}=-a\ln(10)%
+%TCIMACRO{\dint \limits_{-\infty}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{-\infty}^{+\infty}}
+%EndExpansion
+x10^{x}f(10^{x}a)dx
+\]%
+\begin{align*}
+I_{a}  &  =%
+%TCIMACRO{\dint \limits_{0}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{0}^{+\infty}}
+%EndExpansion
+f(t)(\log(a)-\log(t))dt,x=\log\left(  \frac{t}{a}\right)  ,\\
+I_{b}  &  =%
+%TCIMACRO{\dint \limits_{0}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{0}^{+\infty}}
+%EndExpansion
+f(t)(\log(b)-\log(t))dt.
+\end{align*}%
+\begin{align*}
+I_{b}-I_{a}  &  =(\log(b)-\log(a))%
+%TCIMACRO{\dint \limits_{0}^{+\infty}}%
+%BeginExpansion
+{\displaystyle\int\limits_{0}^{+\infty}}
+%EndExpansion
+f(t)dt\\
+&  =\digamma(\log(b)-\log(a)).
+\end{align*}
+
+
+\item For any real $x$ and $y$ and integer $n$ we have%
+\begin{align}
+\lfloor x\rfloor+\lfloor y\rfloor &  \leq\lfloor x+y\rfloor\leq\lfloor
+x\rfloor+\lfloor y\rfloor+1,\label{Prop2}\\
+\lfloor x+n\rfloor &  =\lfloor x\rfloor+n,\nonumber\\
+\lceil x\rceil-\lfloor x\rfloor &  =\left\{
+\begin{array}
+[c]{cc}%
+0, & x\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+1, & x\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{array}
+\right.  ,\\
+\lfloor x\rfloor+\lfloor-x\rfloor &  =\left\{
+\begin{array}
+[c]{cc}%
+0, & x\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+-1, & x\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{array}
+\right.  .
+\end{align}
+
+\end{itemize}
+
+For every real number $x$ and for every positive integer $n$ the following
+identity holds (Hermite's identity)%
+\[
+\lfloor nx\rfloor=%
+%TCIMACRO{\dsum \limits_{i=0}^{n-1}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{i=0}^{n-1}}
+%EndExpansion
+\left\lfloor x+\frac{i}{n}\right\rfloor .
+\]
+For a positive integer $n$, and arbitrary real numbers $m$ and $x$ ($x$ not an
+integer)$\lfloor$%
+\[
+\left\lfloor \frac{\left\lfloor \frac{x}{m}\right\rfloor }{n}\right\rfloor
+=\left\lfloor \frac{x}{mn}\right\rfloor
+\]%
+\begin{equation}
+\lfloor x\rfloor=x-\frac{1}{2}+\frac{1}{\pi}%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\frac{\sin(2\pi jx)}{j}. \label{Floor1}%
+\end{equation}
+
+
+Other presentation%
+\[
+\lfloor z\rfloor=z-\frac{1}{2}+\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{2}, & z\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+0. & z=\frac{n}{2},n\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+\frac{1}{\pi}\arctan\left(  \cot(\pi z)\right)  , & otherwise.
+\end{array}
+\right.
+\]
+or%
+\[
+\lfloor z\rfloor=z-\frac{1}{2}+\left\{
+\begin{array}
+[c]{cc}%
+\frac{1}{2}, & z\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+-\frac{1}{\pi}\arctan\left(  \tan\left(  \pi\left(  z-\frac{1}{2}\right)
+\right)  \right)  , & z\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{array}
+\right.
+\]%
+\[
+\lceil z\rceil=z+\frac{1}{2}+\left\{
+\begin{array}
+[c]{cc}%
+-\frac{1}{2}, & z\in%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+,\\
+-\frac{1}{\pi}\arctan\left(  \tan\left(  \pi\left(  z-\frac{1}{2}\right)
+\right)  \right)  , & z\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{array}
+\right.
+\]%
+\begin{align*}
+\cot(x)  &  =\tan\left(  \frac{\pi}{2}-x\right) \\
+&  =-\tan\left(  x-\frac{\pi}{2}\right)  .
+\end{align*}%
+\begin{align*}
+\arctan\left(  \frac{1}{x}\right)   &  =\operatorname{arccot}(x),x>0.\\
+\arctan\left(  \frac{1}{x}\right)   &  =\frac{\pi}{2}-\arctan\left(  x\right)
+,x>0.
+\end{align*}%
+\begin{align*}
+\arctan\left(  \frac{1}{x}\right)   &  =\operatorname{arccot}(x),x<0.\\
+\arctan\left(  \frac{1}{x}\right)   &  =-\frac{\pi}{2}-\arctan\left(
+x\right)  ,x>0.
+\end{align*}%
+\begin{align*}
+\arctan\left(  x\right)   &  =2\arctan\left(  \frac{x}{1+\sqrt{1-x^{2}}%
+}\right)  ,\\
+\arctan\left(  x\right)   &  =\arcsin\left(  \frac{x}{\sqrt{1-x^{2}}}\right)
+,
+\end{align*}%
+\[
+\tan(a+b)=\frac{\tan(a)+\tan(b)}{1-\tan(a)\tan(b)}.
+\]%
+\[
+\arctan\left(  -x\right)  =-\arctan\left(  x\right)  .
+\]%
+\[
+\frac{d\arctan\left(  x\right)  }{dx}=\frac{1}{1+x^{2}}.
+\]%
+\[
+\arctan\left(  z\right)  =\frac{\imath}{2}\left(  \ln(1-\imath z)-\ln(1+\imath
+z)\right)  .
+\]%
+\[
+\arctan\left(  a\right)  -\arctan\left(  b\right)  =\arctan\left(  \frac
+{a-b}{1+ab}\right)  .
+\]%
+\[
+\tan\left(  a+b\right)  =\arctan\left(  \frac{\tan\left(  a\right)
++\tan\left(  b\right)  }{1-\tan\left(  a\right)  \tan\left(  b\right)
+}\right)  .
+\]
+From RHS of (\ref{Floor1}) we have%
+\begin{align}
+&  x-\frac{1}{2}+\frac{1}{\pi}%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\frac{\sin(2\pi jx)}{j}\\
+&  =x-\frac{1}{2}+%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\frac{1}{2\pi j\imath}\left(  \exp(2\pi jx\imath)-\exp(-2\pi jx\imath)\right)
+.
+\end{align}
+
+
+after summation we have%
+\begin{align*}%
+%TCIMACRO{\dsum \limits_{j=1}^{\infty}}%
+%BeginExpansion
+{\displaystyle\sum\limits_{j=1}^{\infty}}
+%EndExpansion
+\frac{\sin(2\pi jx)}{j}  &  =\frac{1}{2\pi\imath}\left(  -\ln\left(
+1-\exp(-2\pi x\imath)\right)  +\ln\left(  1-\exp(2\pi x\imath)\right)  \right)
+\\
+&  =\frac{1}{\pi}\arctan(\cot(\pi x)),x\notin%
+%TCIMACRO{\U{2124} }%
+%BeginExpansion
+\mathbb{Z}
+%EndExpansion
+.
+\end{align*}
+
+
+\subsection{Code}
+
+\medskip Here is R code
+
+\texttt{V%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-function(s,n)\{if(s==floor(s)) return(s);\newline j%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-c(1:n); a%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-s-1/2+sum(sin(2*pi*j*s)/(pi*j));\newline return(a)\}}
+
+\medskip
+
+\texttt{VV%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-function(k,x,n)\{s%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-log10(x/k);\newline\ s1%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-log10(x/(k+1));\newline V(s,n)-V(s1,n)\}}
+
+\medskip
+
+\texttt{VVV%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-function(k,Sample,n)\{N%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-length(Sample);\newline for(j in 1:N)\{a[j]%
+%TCIMACRO{\TEXTsymbol{<}}%
+%BeginExpansion
+$<$%
+%EndExpansion
+-VV(k,Sample[j],n)\};\newline return(sum(a)/N)\}\medskip}
+
+Where \ \texttt{Sample} is list of positive numbers, \texttt{n}\ is positive integer.
+
+\begin{acknowledgement}
+I am grateful to Prof. T. Hill for pointing out to me the Benford Online
+Bibliography. I thank Dr. F. Benford, Dr. S. Miller and Alex E. Kossovsky for
+useful discussions and comments.
+\end{acknowledgement}
+
+\bigskip%
+%TCIMACRO{\TeXButton{References}{\begin{thebibliography}{1}
+%\bibitem{newcombs} S.Newcombs {\em
+%Note on the frequencey of use of the different
+%digits in natural numbers } 1881: Amer. J. Math. 4 39-40.
+%\bibitem{benford} F.Benford {\em The law of anomalous numbers.}
+%1938: Proceedings of the American Philosophical Society. 78 551-572.
+%\bibitem{pinkham} R.S. Pinkham  {\em
+%On the Distribution of First Significant Digits.}
+%1961: Ann. Math. Statist. Volume 32, Number 4, 1223-1230.
+%\bibitem{knuth} D.Knuth, {\em The Art of Computer Programming}
+%1965: 2 219-229.
+%Addison-Wesley, Reading, MA.
+%\bibitem{wabramowitzstegun} M.Abramowitz, I.A.Stegun (Eds.){\em
+%Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables}%
+%,9th printing.
+%1972: New York: Dover, pp. 16 and 806.
+%\bibitem{diaconis} P.Diaconis {\em
+%The distribution of leading digist and uniform distribution mod 1.}
+%1977: Ann. Probab. 5 72-81.
+%\bibitem{raimi} R.Raimi {\em The first digit
+%phenomenon again.} 1985: Proceedings
+%of the American Philosophical Society 129 211-219.
+%\bibitem{nigrini1} M.J.Nigrini {\em The Detection of Income Tax Evasion
+%Through an Analysis of Digital Distributions}
+%1993. Ph.D. Dissertation, Univ. of Cincinnatti.
+%\bibitem{knuth2} R.L. Graham, D.E. Knuth,O.Patashnik
+%{\em Concrete Mathematics: A Foundation for Computer Science. 2nd Edition}
+%1994: Addison-Wesley Professional,
+%pp.672.
+%\bibitem{hill} T.Hill,{ \em The significant-digit phenomenon }
+%1995: Amer. Math.
+%Monthly 102 322-327.
+%\bibitem{nigrini2} M.J.Nigrini {\em
+%A Taxpayer Compliance Application of Benford's Law.}
+%1996: Journal of the American Tax Association, Spring 1996 pp 72-91.
+%\bibitem{arnold0} V.I.Arnold {\em
+%Statistics of first digits of degries of 2 and redivision of world.}
+%1998: Kvant, 1.(in Russian)
+%\bibitem{arnold1} V.I.Arnold
+%{\em The antiscientifical revolution and mathematics}
+%Talk at the meeting of the Pontifical Academy at Vatican,
+%26 October 1998, Changing concepts of nature at the turn of the millennium.
+%\bibitem{walck} C.Walck, {\em Handbook on
+%Statistical Distributions
+%for experimentalists } 2007.
+%Particle Physics Group, Fysikum
+%University of Stockholm..
+%http://www.stat.rice.edu/~dobelman/textfiles/DistributionsHandbook.pdf
+%\bibitem{formann0} A.K.Formann, Richard James ed.
+%{\em"The Newcomb-Benford Law in Its Relation to Some Common Distributions". }
+%2010:PLoS ONE. 5 (5): e10541. Bibcode:2010PLoSO.
+%510541F. doi:10.1371/journal.pone.0010541. PMC 2866333free to read. PMID 2047987
+%\bibitem{bergerhill} HA.Berger,T.P.Hill,
+%{\em Benford Online Bibliography }
+%2009: accessed May 14, 2010, at h   http://www.benfordonline.net.
+%\bibitem{nigrini} M.Nigrini
+%{\em
+%Benford's Law: Applications for Forensic Accounting, Auditing, and Fraud Detection .}
+%2012:Princeton University Press ,
+%ISBN:  978-1118152850
+%330 pp.
+%\bibitem{arnotheodore} Arno Berger , Theodore P. Hill
+%{\em An Introduction to Benford's Law.} 2015:
+%Princeton University Press
+%SBN: 9780691163062
+%256 pp.
+%\bibitem{miller} Steven J. Miller ed.
+%{\em Benford's Law: Theory and Applications.}
+%2015:Princeton University Press ,
+%ISBN: 978-0-691-14761-1:
+%464 pp.
+%\end{thebibliography}}}%
+%BeginExpansion
+\begin{thebibliography}{1}
+\bibitem{newcombs} S.Newcombs {\em
+Note on the frequencey of use of the different
+digits in natural numbers } 1881: Amer. J. Math. 4 39-40.
+\bibitem{benford} F.Benford {\em The law of anomalous numbers.}
+1938: Proceedings of the American Philosophical Society. 78 551-572.
+\bibitem{pinkham} R.S. Pinkham  {\em
+On the Distribution of First Significant Digits.}
+1961: Ann. Math. Statist. Volume 32, Number 4, 1223-1230.
+\bibitem{knuth} D.Knuth, {\em The Art of Computer Programming}
+1965: 2 219-229.
+Addison-Wesley, Reading, MA.
+\bibitem{wabramowitzstegun} M.Abramowitz, I.A.Stegun (Eds.){\em
+Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables}%
+,9th printing.
+1972: New York: Dover, pp. 16 and 806.
+\bibitem{diaconis} P.Diaconis {\em
+The distribution of leading digist and uniform distribution mod 1.}
+1977: Ann. Probab. 5 72-81.
+\bibitem{raimi} R.Raimi {\em The first digit
+phenomenon again.} 1985: Proceedings
+of the American Philosophical Society 129 211-219.
+\bibitem{nigrini1} M.J.Nigrini {\em The Detection of Income Tax Evasion
+Through an Analysis of Digital Distributions}
+1993. Ph.D. Dissertation, Univ. of Cincinnatti.
+\bibitem{knuth2} R.L. Graham, D.E. Knuth,O.Patashnik
+{\em Concrete Mathematics: A Foundation for Computer Science. 2nd Edition}
+1994: Addison-Wesley Professional,
+pp.672.
+\bibitem{hill} T.Hill,{ \em The significant-digit phenomenon }
+1995: Amer. Math.
+Monthly 102 322-327.
+\bibitem{nigrini2} M.J.Nigrini {\em
+A Taxpayer Compliance Application of Benford's Law.}
+1996: Journal of the American Tax Association, Spring 1996 pp 72-91.
+\bibitem{arnold0} V.I.Arnold {\em
+Statistics of first digits of degries of 2 and redivision of world.}
+1998: Kvant, 1.(in Russian)
+\bibitem{arnold1} V.I.Arnold
+{\em The antiscientifical revolution and mathematics}
+Talk at the meeting of the Pontifical Academy at Vatican,
+26 October 1998, Changing concepts of nature at the turn of the millennium.
+\bibitem{walck} C.Walck, {\em Handbook on
+Statistical Distributions
+for experimentalists } 2007.
+Particle Physics Group, Fysikum
+University of Stockholm..
+http://www.stat.rice.edu/~dobelman/textfiles/DistributionsHandbook.pdf
+\bibitem{formann0} A.K.Formann, Richard James ed.
+{\em"The Newcomb-Benford Law in Its Relation to Some Common Distributions". }
+2010:PLoS ONE. 5 (5): e10541. Bibcode:2010PLoSO.
+510541F. doi:10.1371/journal.pone.0010541. PMC 2866333free to read. PMID 2047987
+\bibitem{bergerhill} HA.Berger,T.P.Hill,
+{\em Benford Online Bibliography }
+2009: accessed May 14, 2010, at h   http://www.benfordonline.net.
+\bibitem{nigrini} M.Nigrini
+{\em
+Benford's Law: Applications for Forensic Accounting, Auditing, and Fraud Detection .}
+2012:Princeton University Press ,
+ISBN:  978-1118152850
+330 pp.
+\bibitem{arnotheodore} Arno Berger , Theodore P. Hill
+{\em An Introduction to Benford's Law.} 2015:
+Princeton University Press
+SBN: 9780691163062
+256 pp.
+\bibitem{miller} Steven J. Miller ed.
+{\em Benford's Law: Theory and Applications.}
+2015:Princeton University Press ,
+ISBN: 978-0-691-14761-1:
+464 pp.
+\end{thebibliography}%
+%EndExpansion
+
+
+
+\end{document}
